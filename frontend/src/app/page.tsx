@@ -1561,7 +1561,7 @@ export default function Dashboard() {
     key={action.title}
     type="button"
     onClick={() => router.push(action.route)}
-    className="glass-card dashboard-action-card"
+    className="dashboard-action-card"
     style={{
       position: "relative",
       overflow: "hidden",
