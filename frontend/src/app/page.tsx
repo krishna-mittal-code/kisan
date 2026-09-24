@@ -648,7 +648,7 @@ export default function Dashboard() {
             iconColor="#fbbf24"
             title={t("dashboard.temperature")}
             value="26°C"
-            subtitle={t("dashboard.feelsLike", { value: 27 })}
+            subtitle={t("dashboard.apparentTemperature", { value: 27 })}
             trend={t("common.stable")}
           />
 
@@ -1148,7 +1148,7 @@ export default function Dashboard() {
                 }}
               >
                 <ShieldCheck size={18} />
-                {t("disease.aiCropDiagnostics")}
+                {t("disease.cropDiagnosticsLabel")}
               </div>
 
               <h2
@@ -1159,7 +1159,7 @@ export default function Dashboard() {
                   fontWeight: 800,
                 }}
               >
-                {t("disease.detectInstantly")}
+                {t("disease.instantDetectionTitle")}
               </h2>
 
               <p
@@ -1325,7 +1325,7 @@ export default function Dashboard() {
                       lineHeight: 1.5
                     }}
                   >
-                    {t("disease.dragDropBrowse")}
+                      {t("disease.uploadPrompt")}
                     <br />
                     JPG, JPEG or PNG
                   </p>
@@ -1464,7 +1464,7 @@ export default function Dashboard() {
                         fontSize: "16px",
                       }}
                     >
-                      {t("disease.readyForAnalysis")}
+                      {t("disease.analysisReadyTitle")}
                     </h3>
 
                     <p
@@ -1661,7 +1661,7 @@ export default function Dashboard() {
                   fontWeight: 800,
                 }}
               >
-                {t("saathi.needHelp")}
+                {t("saathi.farmHelpTitle")}
               </div>
 
               <div
@@ -1671,7 +1671,7 @@ export default function Dashboard() {
                   marginTop: "5px",
                 }}
               >
-                {t("saathi.askInLanguage")}
+                {t("saathi.languagePrompt")}
               </div>
             </div>
           </div>

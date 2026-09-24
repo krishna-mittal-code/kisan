@@ -870,6 +870,133 @@ const additionalTranslations = {
   },
 };
 
+const missingTranslations = {
+  en: {
+    translation: {
+      common: { clear: "Clear", normal: "Normal", stable: "Stable", clearRead: "Clear Read", yesterday: "Yesterday" },
+      topbar: { searchFarmDescription: "Farm details and crop information" },
+      dashboard: {
+        apparentTemperature: "Feels like {{value}}°C",
+      },
+      farm: {
+        subtitle: "Manage your farm profile and crop information.",
+        status: "Farm Status",
+        monitoringActive: "Monitoring active",
+        defaultLocation: "Ghaziabad, Uttar Pradesh",
+        wheatField: "Wheat Field",
+        vegetativeSowing: "Vegetative stage • 15 Nov 2025 sowing",
+        dayCount: "Day {{count}}",
+        cropHealth: "Crop Health",
+        soilMoisture: "Soil Moisture",
+        weather: "Weather",
+        manageFarm: "Manage Farm",
+      },
+      crop: {
+        inspectField: "Inspect Field",
+        checkMoisture: "Check Moisture",
+        monitorDisease: "Monitor Disease",
+        reviewGrowth: "Review Growth",
+      },
+      disease: {
+        cropDiagnosticsLabel: "AI Crop Diagnostics",
+        instantDetectionTitle: "Detect crop disease instantly",
+        uploadPrompt: "Drag & drop or click to browse",
+        analysisReadyTitle: "Ready for analysis",
+        uploadInstruction: "Add a clear photo of the crop leaf.",
+        analysisInstruction: "The AI model examines the crop image.",
+        guidanceInstruction: "Receive disease risk and recommended actions.",
+        clearImageText: "Make sure the affected leaf is clearly visible.",
+        affectedAreaText: "Include visible spots, discoloration or damage.",
+        aiGuidanceText: "Combine AI results with local agricultural advice.",
+        awaitingImage: "Awaiting Crop Image",
+        awaitingImageText: "Upload a clear image of the crop leaf to start AI disease analysis.",
+        dashboardUploadDescription: "Upload a clear image of your crop leaf. Kisan Saathi will send it to the AI disease-analysis system and display the detected condition and recommended actions.",
+        dashboardEmptyDescription: "Upload a crop image to receive disease prediction, confidence and recommended actions.",
+        uploadedCropAlt: "Uploaded crop",
+        imageSelectedShort: "Image selected",
+        dropImageHere: "Drop image here",
+        analyzeWithAI: "Analyze with AI",
+        aiDiagnosis: "AI Diagnosis",
+        aiResult: "AI Result",
+        analysisReport: "Analysis Report",
+        clickReplace: "Click to replace image",
+        detectedCondition: "Detected Condition",
+        viewFullDiagnosis: "View Full Diagnosis",
+      },
+      weather: {
+        subtitle: "Understand weather conditions before making farm decisions.",
+        intelligence: "WEATHER INTELLIGENCE",
+        temperature: "Temperature",
+        rainProbability: "Rain Probability",
+        expectedHigh: "Expected High",
+        expectedLow: "Expected Low",
+        irrigation: "Irrigation",
+        cropGrowth: "Crop Growth",
+        diseaseRisk: "Disease Risk",
+      },
+      market: { subtitle: "Track crop prices and market movement across nearby mandis.", minimumPrice: "Minimum Price", modalPrice: "Modal Price", maximumPrice: "Maximum Price", marketArrival: "Market Arrival" },
+      knowledge: { subtitle: "Practical farming knowledge to help you make informed field decisions.", cropHealth: "Crop Health", waterManagement: "Water Management", diseaseAwareness: "Disease Awareness" },
+      expert: { verifiedExperts: "Verified Experts", consultations: "Consultations", averageRating: "Average Rating", problemPlaceholder: "Describe your crop, symptoms, field condition or question..." },
+      alerts: {
+        subtitle: "Stay updated about weather, crop health and important farm conditions.", unread: "Unread", unreadAlerts: "Unread Alerts", criticalAlerts: "Critical Alerts", readAlerts: "Read Alerts", recentAlerts: "Recent Alerts", smartMonitoring: "Smart Alert Monitoring", monitoringDescription: "Kisan Saathi can combine weather, crop-health and farm information to surface important alerts.", read: "Read", shownCount: "{{count}} {{filter}} alerts shown", noFilteredAlerts: "No {{filter}} alerts", noFilteredAlertsDescription: "There are currently no alerts matching this filter.", diseaseRiskIncreased: "Disease Risk Increased", humidityDiseaseRisk: "Higher humidity may increase crop disease risk.", humidityDiseaseRiskLong: "Higher humidity conditions may increase the possibility of crop disease. Inspect leaves and affected areas.", rainExpected: "Rain Expected Tomorrow", reviewIrrigation: "Review irrigation plans before rainfall.", reviewIrrigationWindow: "Rain probability is expected to increase. Review irrigation plans before the rainfall window.", irrigationReview: "Irrigation Review", moderateIrrigation: "Moderate irrigation demand detected.", moderateIrrigationLong: "Current weather conditions indicate moderate irrigation demand for your field.", cropGrowthUpdate: "Crop Growth Update", wheatGrowth: "Your wheat crop is currently in an active development stage. Continue routine field monitoring.", humidityIncreasing: "Humidity Increasing", monitorAfterRain: "Humidity levels are expected to remain elevated. Monitor the crop after rainfall.", fieldInspection: "Field Inspection Reminder", routineInspection: "A routine crop inspection can help identify changes in plant health early.", time20Min: "20 min ago", time1Hour: "1 hour ago", time3Hours: "3 hours ago", time2Days: "2 days ago" },
+      saathi: { farmHelpTitle: "Need help with your farm?", languagePrompt: "Ask Saathi in your language" },
+    },
+  },
+  hi: {
+    translation: {
+      common: { clear: "साफ़ करें", clearRead: "पढ़े हुए हटाएं", normal: "सामान्य", stable: "स्थिर", yesterday: "कल" },
+      topbar: { searchFarmDescription: "खेत की जानकारी और फसल का विवरण" },
+      dashboard: { apparentTemperature: "महसूस होने वाला तापमान {{value}}°C" },
+      farm: { subtitle: "अपने खेत की प्रोफ़ाइल और फसल की जानकारी प्रबंधित करें।", status: "खेत की स्थिति", monitoringActive: "निगरानी सक्रिय", defaultLocation: "गाजियाबाद, उत्तर प्रदेश", wheatField: "गेहूं का खेत", vegetativeSowing: "वानस्पतिक अवस्था • 15 नवंबर 2025 की बुवाई", dayCount: "दिन {{count}}", cropHealth: "फसल स्वास्थ्य", soilMoisture: "मिट्टी की नमी", weather: "मौसम", manageFarm: "खेत प्रबंधित करें" },
+      crop: { inspectField: "खेत का निरीक्षण करें", checkMoisture: "नमी जांचें", monitorDisease: "रोग की निगरानी करें", reviewGrowth: "विकास की समीक्षा करें" },
+      disease: { cropDiagnosticsLabel: "AI फसल जांच", instantDetectionTitle: "फसल रोग तुरंत पहचानें", uploadPrompt: "खींचकर छोड़ें या चुनने के लिए क्लिक करें", analysisReadyTitle: "विश्लेषण के लिए तैयार", uploadInstruction: "फसल की पत्ती की साफ तस्वीर जोड़ें।", analysisInstruction: "AI मॉडल फसल की तस्वीर की जांच करता है।", guidanceInstruction: "रोग का जोखिम और सुझाए गए उपाय प्राप्त करें।", clearImageText: "सुनिश्चित करें कि प्रभावित पत्ती साफ दिखाई दे।", affectedAreaText: "दिखने वाले धब्बे, रंग बदलना या नुकसान शामिल करें।", aiGuidanceText: "AI परिणामों को स्थानीय कृषि सलाह के साथ देखें।", awaitingImage: "फसल की तस्वीर की प्रतीक्षा", awaitingImageText: "AI रोग विश्लेषण शुरू करने के लिए पत्ती की साफ तस्वीर अपलोड करें।", dashboardUploadDescription: "फसल की पत्ती की साफ तस्वीर अपलोड करें। Kisan Saathi AI प्रणाली से उसका विश्लेषण कर रोग और सुझाए गए उपाय दिखाएगा।", dashboardEmptyDescription: "रोग, विश्वास स्तर और सुझाए गए उपाय पाने के लिए फसल की तस्वीर अपलोड करें।", uploadedCropAlt: "अपलोड की गई फसल", imageSelectedShort: "तस्वीर चुनी गई", dropImageHere: "तस्वीर यहां छोड़ें", analyzeWithAI: "AI से विश्लेषण करें", aiDiagnosis: "AI निदान", aiResult: "AI परिणाम", analysisReport: "विश्लेषण रिपोर्ट", clickReplace: "तस्वीर बदलने के लिए क्लिक करें", detectedCondition: "पहचानी गई स्थिति", viewFullDiagnosis: "पूरा निदान देखें" },
+      weather: { subtitle: "खेती के निर्णय लेने से पहले मौसम की स्थिति समझें।", intelligence: "मौसम की जानकारी", temperature: "तापमान", rainProbability: "बारिश की संभावना", expectedHigh: "अनुमानित अधिकतम", expectedLow: "अनुमानित न्यूनतम", irrigation: "सिंचाई", cropGrowth: "फसल विकास", diseaseRisk: "रोग का जोखिम" },
+      market: { subtitle: "नजदीकी मंडियों में फसल के भाव और बाजार की चाल देखें।", minimumPrice: "न्यूनतम भाव", modalPrice: "मॉडल भाव", maximumPrice: "अधिकतम भाव", marketArrival: "बाजार आवक" },
+      knowledge: { subtitle: "खेत के बेहतर निर्णयों के लिए उपयोगी कृषि जानकारी प्राप्त करें।", cropHealth: "फसल स्वास्थ्य", waterManagement: "जल प्रबंधन", diseaseAwareness: "रोग जागरूकता" },
+      expert: { verifiedExperts: "सत्यापित विशेषज्ञ", consultations: "परामर्श", averageRating: "औसत रेटिंग", problemPlaceholder: "अपनी फसल, लक्षण, खेत की स्थिति या प्रश्न बताएं..." },
+      alerts: { subtitle: "मौसम, फसल स्वास्थ्य और खेत की महत्वपूर्ण स्थितियों से अपडेट रहें।", unread: "अपठित", unreadAlerts: "अपठित अलर्ट", criticalAlerts: "गंभीर अलर्ट", readAlerts: "पढ़े हुए अलर्ट", recentAlerts: "हाल के अलर्ट", smartMonitoring: "स्मार्ट अलर्ट निगरानी", monitoringDescription: "Kisan Saathi मौसम, फसल स्वास्थ्य और खेत की जानकारी से महत्वपूर्ण अलर्ट दिखा सकता है।", read: "पढ़ा हुआ", shownCount: "{{count}} {{filter}} अलर्ट दिखाए गए", noFilteredAlerts: "कोई {{filter}} अलर्ट नहीं", noFilteredAlertsDescription: "इस फ़िल्टर से मेल खाते कोई अलर्ट नहीं हैं।", diseaseRiskIncreased: "रोग का जोखिम बढ़ा", humidityDiseaseRisk: "अधिक नमी से फसल में रोग का जोखिम बढ़ सकता है।", humidityDiseaseRiskLong: "अधिक नमी से फसल रोग की संभावना बढ़ सकती है। पत्तियों और प्रभावित हिस्सों की जांच करें।", rainExpected: "कल बारिश की संभावना", reviewIrrigation: "बारिश से पहले सिंचाई योजना की समीक्षा करें।", reviewIrrigationWindow: "बारिश की संभावना बढ़ने की उम्मीद है। बारिश से पहले सिंचाई योजना देखें।", irrigationReview: "सिंचाई की समीक्षा", moderateIrrigation: "मध्यम सिंचाई आवश्यकता मिली।", moderateIrrigationLong: "वर्तमान मौसम आपके खेत में मध्यम सिंचाई आवश्यकता दिखाता है।", cropGrowthUpdate: "फसल विकास अपडेट", wheatGrowth: "आपकी गेहूं की फसल सक्रिय विकास अवस्था में है। नियमित निगरानी जारी रखें।", humidityIncreasing: "नमी बढ़ रही है", monitorAfterRain: "नमी अधिक रहने की उम्मीद है। बारिश के बाद फसल की निगरानी करें।", fieldInspection: "खेत निरीक्षण अनुस्मारक", routineInspection: "नियमित फसल निरीक्षण से पौधों के स्वास्थ्य में बदलाव जल्दी पहचाने जा सकते हैं।", time20Min: "20 मिनट पहले", time1Hour: "1 घंटे पहले", time3Hours: "3 घंटे पहले", time2Days: "2 दिन पहले" },
+      saathi: { farmHelpTitle: "क्या आपको खेत के लिए मदद चाहिए?", languagePrompt: "साथी से अपनी भाषा में पूछें" },
+    },
+  },
+  gu: {
+    translation: {
+      common: { clear: "સાફ કરો", clearRead: "વાંચેલા દૂર કરો", normal: "સામાન્ય", stable: "સ્થિર", yesterday: "ગઈકાલે" },
+      topbar: { searchFarmDescription: "ખેતરની માહિતી અને પાકની વિગતો" },
+      dashboard: { apparentTemperature: "અનુભવાતું તાપમાન {{value}}°C" },
+      farm: { subtitle: "તમારા ખેતરની પ્રોફાઇલ અને પાકની માહિતી સંચાલિત કરો.", status: "ખેતરની સ્થિતિ", monitoringActive: "દેખરેખ સક્રિય", defaultLocation: "ગાઝિયાબાદ, ઉત્તર પ્રદેશ", wheatField: "ઘઉંનું ખેતર", vegetativeSowing: "વનસ્પતિ અવસ્થા • 15 નવેમ્બર 2025ની વાવણી", dayCount: "દિવસ {{count}}", cropHealth: "પાકનું સ્વાસ્થ્ય", soilMoisture: "માટીની ભેજ", weather: "હવામાન", manageFarm: "ખેતર સંચાલિત કરો" },
+      crop: { inspectField: "ખેતર તપાસો", checkMoisture: "ભેજ તપાસો", monitorDisease: "રોગની દેખરેખ રાખો", reviewGrowth: "વિકાસની સમીક્ષા કરો" },
+      disease: { cropDiagnosticsLabel: "AI પાક તપાસ", instantDetectionTitle: "પાકનો રોગ તરત ઓળખો", uploadPrompt: "ખેંચીને મૂકો અથવા પસંદ કરવા ક્લિક કરો", analysisReadyTitle: "વિશ્લેષણ માટે તૈયાર", uploadInstruction: "પાકના પાનની સ્પષ્ટ તસવીર ઉમેરો.", analysisInstruction: "AI મોડેલ પાકની તસવીરની તપાસ કરે છે.", guidanceInstruction: "રોગનું જોખમ અને ભલામણ કરેલા પગલાં મેળવો.", clearImageText: "ખાતરી કરો કે અસરગ્રસ્ત પાન સ્પષ્ટ દેખાય છે.", affectedAreaText: "દેખાતા ડાઘ, રંગ બદલાવ અથવા નુકસાનનો સમાવેશ કરો.", aiGuidanceText: "AI પરિણામોને સ્થાનિક કૃષિ સલાહ સાથે ઉપયોગ કરો.", awaitingImage: "પાકની તસવીરની રાહ જોઈ રહ્યા છીએ", awaitingImageText: "AI રોગ વિશ્લેષણ શરૂ કરવા માટે પાનની સ્પષ્ટ તસવીર અપલોડ કરો.", dashboardUploadDescription: "પાકના પાનની સ્પષ્ટ તસવીર અપલોડ કરો. Kisan Saathi AI સિસ્ટમથી તેનું વિશ્લેષણ કરીને રોગ અને ભલામણ કરેલા પગલાં બતાવશે.", dashboardEmptyDescription: "રોગ, વિશ્વાસ સ્તર અને ભલામણ કરેલા પગલાં મેળવવા પાકની તસવીર અપલોડ કરો.", uploadedCropAlt: "અપલોડ કરેલો પાક", imageSelectedShort: "તસવીર પસંદ થઈ", dropImageHere: "તસવીર અહીં મૂકો", analyzeWithAI: "AI સાથે વિશ્લેષણ કરો", aiDiagnosis: "AI નિદાન", aiResult: "AI પરિણામ", analysisReport: "વિશ્લેષણ અહેવાલ", clickReplace: "તસવીર બદલવા ક્લિક કરો", detectedCondition: "ઓળખાયેલી સ્થિતિ", viewFullDiagnosis: "સંપૂર્ણ નિદાન જુઓ" },
+      weather: { subtitle: "ખેતીના નિર્ણયો લેતા પહેલાં હવામાનની સ્થિતિ સમજો.", intelligence: "હવામાનની માહિતી", temperature: "તાપમાન", rainProbability: "વરસાદની શક્યતા", expectedHigh: "અપેક્ષિત મહત્તમ", expectedLow: "અપેક્ષિત લઘુત્તમ", irrigation: "સિંચાઈ", cropGrowth: "પાકનો વિકાસ", diseaseRisk: "રોગનું જોખમ" },
+      market: { subtitle: "નજીકની મંડીઓમાં પાકના ભાવ અને બજારની હિલચાલ જુઓ.", minimumPrice: "ન્યૂનતમ ભાવ", modalPrice: "મોડલ ભાવ", maximumPrice: "મહત્તમ ભાવ", marketArrival: "બજાર આવક" },
+      knowledge: { subtitle: "ખેતરના સારા નિર્ણયો માટે ઉપયોગી ખેતીનું જ્ઞાન મેળવો.", cropHealth: "પાકનું સ્વાસ્થ્ય", waterManagement: "જળ વ્યવસ્થાપન", diseaseAwareness: "રોગ જાગૃતિ" },
+      expert: { verifiedExperts: "ચકાસેલા નિષ્ણાતો", consultations: "સલાહકારીઓ", averageRating: "સરેરાશ રેટિંગ", problemPlaceholder: "તમારા પાક, લક્ષણો, ખેતરની સ્થિતિ અથવા પ્રશ્નનું વર્ણન કરો..." },
+      alerts: { subtitle: "હવામાન, પાકના સ્વાસ્થ્ય અને ખેતરની મહત્વપૂર્ણ સ્થિતિથી અપડેટ રહો.", unread: "વાંચ્યા વિનાના", unreadAlerts: "વાંચ્યા વિનાની ચેતવણીઓ", criticalAlerts: "ગંભીર ચેતવણીઓ", readAlerts: "વાંચેલી ચેતવણીઓ", recentAlerts: "તાજેતરની ચેતવણીઓ", smartMonitoring: "સ્માર્ટ ચેતવણી દેખરેખ", monitoringDescription: "Kisan Saathi હવામાન, પાકના સ્વાસ્થ્ય અને ખેતરની માહિતી જોડીને મહત્વપૂર્ણ ચેતવણીઓ બતાવી શકે છે.", read: "વાંચેલું", shownCount: "{{count}} {{filter}} ચેતવણીઓ બતાવવામાં આવી", noFilteredAlerts: "કોઈ {{filter}} ચેતવણી નથી", noFilteredAlertsDescription: "આ ફિલ્ટર સાથે મેળ ખાતી કોઈ ચેતવણી નથી.", diseaseRiskIncreased: "રોગનું જોખમ વધ્યું", humidityDiseaseRisk: "વધુ ભેજથી પાકમાં રોગનું જોખમ વધી શકે છે.", humidityDiseaseRiskLong: "વધુ ભેજથી પાકના રોગની શક્યતા વધી શકે છે. પાંદડા અને અસરગ્રસ્ત ભાગોની તપાસ કરો.", rainExpected: "આવતીકાલે વરસાદની શક્યતા", reviewIrrigation: "વરસાદ પહેલાં સિંચાઈ યોજનાની સમીક્ષા કરો.", reviewIrrigationWindow: "વરસાદની શક્યતા વધવાની ધારણા છે. વરસાદ પહેલાં સિંચાઈ યોજના તપાસો.", irrigationReview: "સિંચાઈની સમીક્ષા", moderateIrrigation: "મધ્યમ સિંચાઈની જરૂરિયાત મળી.", moderateIrrigationLong: "હાલની હવામાન સ્થિતિ તમારા ખેતર માટે મધ્યમ સિંચાઈની જરૂરિયાત દર્શાવે છે.", cropGrowthUpdate: "પાક વિકાસ અપડેટ", wheatGrowth: "તમારો ઘઉંનો પાક સક્રિય વિકાસ અવસ્થામાં છે. નિયમિત ખેતર દેખરેખ ચાલુ રાખો.", humidityIncreasing: "ભેજ વધી રહ્યો છે", monitorAfterRain: "ભેજ વધુ રહેવાની શક્યતા છે. વરસાદ પછી પાકની દેખરેખ રાખો.", fieldInspection: "ખેતર તપાસ યાદ અપાવનાર", routineInspection: "નિયમિત પાક તપાસથી છોડના સ્વાસ્થ્યમાં ફેરફાર વહેલો ઓળખી શકાય છે.", time20Min: "20 મિનિટ પહેલાં", time1Hour: "1 કલાક પહેલાં", time3Hours: "3 કલાક પહેલાં", time2Days: "2 દિવસ પહેલાં" },
+      saathi: { farmHelpTitle: "શું તમને ખેતર માટે મદદ જોઈએ છે?", languagePrompt: "સાથીને તમારી ભાષામાં પૂછો" },
+    },
+  },
+};
+
+const localeCompletion = {
+  hi: {
+    translation: {
+      sidebar: { mainMenu: "मुख्य मेनू", madeForFarmers: "भारतीय किसानों के लिए बनाया गया", copyright: "© Kisan Saathi", noFeatureFound: "Kisan Saathi की कोई सुविधा नहीं मिली।", languageChanged: "भाषा {{language}} में बदल दी गई" },
+      topbar: { noFeatureFound: "Kisan Saathi की कोई सुविधा नहीं मिली।", recentAlerts: "हाल की सूचनाएं", viewAll: "सभी देखें", id: "आईडी: {{id}}" },
+      dashboard: { apparentTemperature: "महसूस होने वाला तापमान {{value}}°C", checkCropDisease: "फसल रोग जांचें", uploadLeafForDiagnosis: "जांच के लिए पत्ती की तस्वीर अपलोड करें", reviewWeather: "मौसम की समीक्षा करें", checkRainfallIrrigation: "बारिश और सिंचाई की जरूरत देखें", cropAdvisoryDescription: "अपनी फसल की अवस्था के लिए सलाह पाएं", checkMarket: "बाजार देखें", compareMandiPrices: "नजदीकी मंडियों के भाव की तुलना करें", healthyCrop: "स्वस्थ फसल", monitoring: "निगरानी", soilMoisture: "मिट्टी की नमी", optimalRange: "उचित सीमा में", windSpeed: "हवा की गति", moderateWind: "मध्यम हवा", temperature: "तापमान", visibility: "दृश्यता", goodVisibility: "अच्छी दृश्यता", aiCropHealthAssessment: "AI फसल स्वास्थ्य आकलन", runAiDiagnosis: "AI निदान चलाएं", sevenDayHealthTrend: "7 दिन का स्वास्थ्य रुझान", seasonalGrowthProjection: "मौसमी विकास का अनुमान", aboveBaseline: "सामान्य से बेहतर", fieldIntelligence: "खेत की जानकारी", currentCropConditions: "फसल की वर्तमान स्थिति", cropGrowth: "फसल विकास", healthyDevelopment: "स्वस्थ विकास", optimalMoisture: "उचित नमी", nutrientStatus: "पोषक स्थिति", goodAvailability: "अच्छी उपलब्धता", weatherSuitability: "मौसम की अनुकूलता", favorableConditions: "अनुकूल स्थिति", fieldConditionStable: "वर्तमान डेमो जानकारी में तनाव का कोई बड़ा संकेत नहीं मिला।", todaysActions: "आज के कार्य", recommendedPriorities: "सुझाई गई प्राथमिकताएं", reviewIrrigation: "सिंचाई की समीक्षा करें", checkSoilMoisture: "सिंचाई से पहले मिट्टी की नमी जांचें", inspectCropLeaves: "फसल की पत्तियों की जांच करें", diseaseRiskElevated: "रोग का जोखिम बढ़ सकता है", monitorRainfall: "बारिश पर नजर रखें", rainfallAffectsIrrigation: "बारिश से सिंचाई की जरूरत बदल सकती है", quickActionsSubtitle: "आपके खेत के सामान्य कार्य" },
+      disease: { uploadStep: "अपलोड करें", analysisStep: "AI विश्लेषण", guidanceStep: "सलाह पाएं", clearImage: "साफ तस्वीर का उपयोग करें", affectedArea: "प्रभावित हिस्सा दिखाएं", aiGuidance: "AI को सलाह के रूप में उपयोग करें", aiCropDiagnosticsLabel: "AI फसल जांच", detectInstantlyTitle: "फसल रोग तुरंत पहचानें", dragDropBrowseText: "खींचकर छोड़ें या चुनने के लिए क्लिक करें", readyForAnalysisTitle: "विश्लेषण के लिए तैयार", uploadInstruction: "फसल की पत्ती की साफ तस्वीर जोड़ें।", analysisInstruction: "AI मॉडल फसल की तस्वीर की जांच करता है।", guidanceInstruction: "रोग का जोखिम और सुझाए गए उपाय प्राप्त करें।", clearImageText: "सुनिश्चित करें कि प्रभावित पत्ती साफ दिखाई दे।", affectedAreaText: "दिखने वाले धब्बे, रंग बदलना या नुकसान शामिल करें।", aiGuidanceText: "AI परिणामों को स्थानीय कृषि सलाह के साथ देखें।", aiDiagnosis: "AI निदान", aiResult: "AI परिणाम", analysisReport: "विश्लेषण रिपोर्ट", clickReplace: "तस्वीर बदलने के लिए क्लिक करें", detectedCondition: "पहचानी गई स्थिति", viewFullDiagnosis: "पूरा निदान देखें", dropImageHere: "तस्वीर यहां छोड़ें", analyzeWithAI: "AI से विश्लेषण करें", imageSelectedShort: "तस्वीर चुनी गई", uploadedCropAlt: "अपलोड की गई फसल", dashboardUploadDescription: "फसल की पत्ती की साफ तस्वीर अपलोड करें। Kisan Saathi AI प्रणाली से उसका विश्लेषण कर रोग और सुझाए गए उपाय दिखाएगा।", dashboardEmptyDescription: "रोग, विश्वास स्तर और सुझाए गए उपाय पाने के लिए फसल की तस्वीर अपलोड करें।", awaitingImage: "फसल की तस्वीर की प्रतीक्षा", awaitingImageText: "AI रोग विश्लेषण शुरू करने के लिए पत्ती की साफ तस्वीर अपलोड करें।" },
+      settings: { subtitle: "अपनी प्रोफ़ाइल, अलर्ट और साथी की प्राथमिकताएं प्रबंधित करें।", saved: "सेटिंग्स सफलतापूर्वक सहेजी गईं", resetDone: "सेटिंग्स डिफ़ॉल्ट पर बहाल की गईं", profile: "किसान प्रोफ़ाइल", profileSubtitle: "आपके खाते की मूल जानकारी", farmerName: "किसान का नाम", mobileNumber: "मोबाइल नंबर", profileActive: "आपकी किसान प्रोफ़ाइल सक्रिय है", languageSubtitle: "चुनें कि Kisan Saathi आपसे कैसे संवाद करे", appLanguage: "ऐप की भाषा", selectLanguage: "अपनी पसंदीदा भाषा चुनें।", notificationsSubtitle: "आपको मिलने वाले खेत अलर्ट नियंत्रित करें", smartNotifications: "स्मार्ट सूचनाएं", smartNotificationsDescription: "अपने खेत की महत्वपूर्ण जानकारी पाएं।", weatherAlerts: "मौसम अलर्ट", weatherAlertsDescription: "मौसम में महत्वपूर्ण बदलाव की सूचना पाएं।", diseaseAlerts: "रोग और फसल अलर्ट", diseaseAlertsDescription: "फसल स्वास्थ्य और रोग की चेतावनियां पाएं।", irrigationAlerts: "सिंचाई अलर्ट", irrigationAlertsDescription: "सिंचाई की जरूरत होने पर याद दिलाया जाएगा।", saathiAi: "साथी AI", saathiAiSubtitle: "अपने कृषि सहायक की सेटिंग बदलें", aiInsights: "AI खेत जानकारी", aiInsightsDescription: "साथी को स्मार्ट खेती की सलाह बनाने दें।", saathiIntelligence: "साथी इंटेलिजेंस", personalizedRecommendations: "व्यक्तिगत सुझाव सक्रिय हैं।", privacy: "गोपनीयता और डेटा", privacySubtitle: "ऐप द्वारा उपयोग की जाने वाली अनुमतियां प्रबंधित करें", locationAccess: "स्थान की अनुमति", locationAccessDescription: "स्थानीय मौसम और खेत की जानकारी के लिए अपना स्थान उपयोग करें।", localStorageNotice: "इस प्रोटोटाइप में आपकी सेटिंग्स स्थानीय रूप से रखी जाती हैं। बाद में बैकएंड डेटा संग्रह जोड़ा जा सकता है।", reset: "सेटिंग्स रीसेट करें" },
+    },
+  },
+  gu: {
+    translation: {
+      sidebar: { mainMenu: "મુખ્ય મેનૂ", madeForFarmers: "ભારતીય ખેડૂતો માટે બનાવેલ", copyright: "© Kisan Saathi", noFeatureFound: "Kisan Saathiની કોઈ સુવિધા મળી નથી.", languageChanged: "ભાષા {{language}} માં બદલાઈ" },
+      topbar: { noFeatureFound: "Kisan Saathiની કોઈ સુવિધા મળી નથી.", recentAlerts: "તાજેતરની ચેતવણીઓ", viewAll: "બધું જુઓ", id: "આઈડી: {{id}}" },
+      dashboard: { apparentTemperature: "અનુભવાતું તાપમાન {{value}}°C", checkCropDisease: "પાકનો રોગ તપાસો", uploadLeafForDiagnosis: "નિદાન માટે પાનની તસવીર અપલોડ કરો", reviewWeather: "હવામાનની સમીક્ષા કરો", checkRainfallIrrigation: "વરસાદ અને સિંચાઈની જરૂરિયાત તપાસો", cropAdvisoryDescription: "તમારા પાકની અવસ્થા માટે સલાહ મેળવો", checkMarket: "બજાર જુઓ", compareMandiPrices: "નજીકની મંડીઓના ભાવની તુલના કરો", healthyCrop: "સ્વસ્થ પાક", monitoring: "દેખરેખ", soilMoisture: "માટીની ભેજ", optimalRange: "યોગ્ય મર્યાદામાં", windSpeed: "પવનની ઝડપ", moderateWind: "મધ્યમ પવન", temperature: "તાપમાન", visibility: "દૃશ્યતા", goodVisibility: "સારી દૃશ્યતા", aiCropHealthAssessment: "AI પાક સ્વાસ્થ્ય મૂલ્યાંકન", runAiDiagnosis: "AI નિદાન ચલાવો", sevenDayHealthTrend: "7 દિવસનો સ્વાસ્થ્ય ટ્રેન્ડ", seasonalGrowthProjection: "મોસમી વિકાસનો અંદાજ", aboveBaseline: "સામાન્યથી વધુ", fieldIntelligence: "ખેતરની માહિતી", currentCropConditions: "પાકની વર્તમાન સ્થિતિ", cropGrowth: "પાકનો વિકાસ", healthyDevelopment: "સ્વસ્થ વિકાસ", optimalMoisture: "યોગ્ય ભેજ", nutrientStatus: "પોષક સ્થિતિ", goodAvailability: "સારી ઉપલબ્ધતા", weatherSuitability: "હવામાનની અનુકૂળતા", favorableConditions: "અનુકૂળ સ્થિતિ", fieldConditionStable: "હાલની ડેમો માહિતીમાં તણાવનું કોઈ મોટું સૂચક મળ્યું નથી.", todaysActions: "આજના કાર્યો", recommendedPriorities: "ભલામણ કરેલી પ્રાથમિકતાઓ", reviewIrrigation: "સિંચાઈની સમીક્ષા કરો", checkSoilMoisture: "સિંચાઈ પહેલાં માટીની ભેજ તપાસો", inspectCropLeaves: "પાકના પાંદડા તપાસો", diseaseRiskElevated: "રોગનું જોખમ વધી શકે છે", monitorRainfall: "વરસાદ પર નજર રાખો", rainfallAffectsIrrigation: "વરસાદથી સિંચાઈની જરૂરિયાત બદલાઈ શકે છે", quickActionsSubtitle: "તમારા ખેતરના સામાન્ય કાર્યો" },
+      disease: { uploadStep: "અપલોડ કરો", analysisStep: "AI વિશ્લેષણ", guidanceStep: "માર્ગદર્શન મેળવો", clearImage: "સ્પષ્ટ તસવીર વાપરો", affectedArea: "અસરગ્રસ્ત ભાગ બતાવો", aiGuidance: "AIનો માર્ગદર્શન તરીકે ઉપયોગ કરો", aiCropDiagnosticsLabel: "AI પાક તપાસ", detectInstantlyTitle: "પાકનો રોગ તરત ઓળખો", dragDropBrowseText: "ખેંચીને મૂકો અથવા પસંદ કરવા ક્લિક કરો", readyForAnalysisTitle: "વિશ્લેષણ માટે તૈયાર", uploadInstruction: "પાકના પાનની સ્પષ્ટ તસવીર ઉમેરો.", analysisInstruction: "AI મોડેલ પાકની તસવીરની તપાસ કરે છે.", guidanceInstruction: "રોગનું જોખમ અને ભલામણ કરેલા પગલાં મેળવો.", clearImageText: "ખાતરી કરો કે અસરગ્રસ્ત પાન સ્પષ્ટ દેખાય છે.", affectedAreaText: "દેખાતા ડાઘ, રંગ બદલાવ અથવા નુકસાનનો સમાવેશ કરો.", aiGuidanceText: "AI પરિણામોને સ્થાનિક કૃષિ સલાહ સાથે ઉપયોગ કરો.", aiDiagnosis: "AI નિદાન", aiResult: "AI પરિણામ", analysisReport: "વિશ્લેષણ અહેવાલ", clickReplace: "તસવીર બદલવા ક્લિક કરો", detectedCondition: "ઓળખાયેલી સ્થિતિ", viewFullDiagnosis: "સંપૂર્ણ નિદાન જુઓ", dropImageHere: "તસવીર અહીં મૂકો", analyzeWithAI: "AI સાથે વિશ્લેષણ કરો", imageSelectedShort: "તસવીર પસંદ થઈ", uploadedCropAlt: "અપલોડ કરેલો પાક", dashboardUploadDescription: "પાકના પાનની સ્પષ્ટ તસવીર અપલોડ કરો. Kisan Saathi AI સિસ્ટમથી તેનું વિશ્લેષણ કરીને રોગ અને ભલામણ કરેલા પગલાં બતાવશે.", dashboardEmptyDescription: "રોગ, વિશ્વાસ સ્તર અને ભલામણ કરેલા પગલાં મેળવવા પાકની તસવીર અપલોડ કરો.", awaitingImage: "પાકની તસવીરની રાહ જોઈ રહ્યા છીએ", awaitingImageText: "AI રોગ વિશ્લેષણ શરૂ કરવા માટે પાનની સ્પષ્ટ તસવીર અપલોડ કરો." },
+      settings: { subtitle: "તમારી પ્રોફાઇલ, ચેતવણીઓ અને સાથીની પસંદગીઓ સંચાલિત કરો.", saved: "સેટિંગ્સ સફળતાપૂર્વક સાચવાઈ", resetDone: "સેટિંગ્સ ડિફોલ્ટ પર પુનઃસ્થાપિત થઈ", profile: "ખેડૂત પ્રોફાઇલ", profileSubtitle: "તમારા એકાઉન્ટની મૂળભૂત માહિતી", farmerName: "ખેડૂતનું નામ", mobileNumber: "મોબાઇલ નંબર", profileActive: "તમારી ખેડૂત પ્રોફાઇલ સક્રિય છે", languageSubtitle: "Kisan Saathi તમારી સાથે કેવી રીતે વાત કરે તે પસંદ કરો", appLanguage: "એપની ભાષા", selectLanguage: "તમારી પસંદગીની ભાષા પસંદ કરો.", notificationsSubtitle: "તમને મળતી ખેતરની ચેતવણીઓ નિયંત્રિત કરો", smartNotifications: "સ્માર્ટ સૂચનાઓ", smartNotificationsDescription: "તમારા ખેતરની મહત્વપૂર્ણ માહિતી મેળવો.", weatherAlerts: "હવામાન ચેતવણીઓ", weatherAlertsDescription: "હવામાનમાં મહત્વપૂર્ણ ફેરફારોની જાણ મેળવો.", diseaseAlerts: "રોગ અને પાક ચેતવણીઓ", diseaseAlertsDescription: "પાકના સ્વાસ્થ્ય અને રોગની ચેતવણીઓ મેળવો.", irrigationAlerts: "સિંચાઈ ચેતવણીઓ", irrigationAlertsDescription: "સિંચાઈ જરૂરી હોય ત્યારે યાદ અપાવાશે.", saathiAi: "સાથી AI", saathiAiSubtitle: "તમારા કૃષિ સહાયકને ગોઠવો", aiInsights: "AI ખેતર માહિતી", aiInsightsDescription: "સાથીને સ્માર્ટ ખેતીની ભલામણો બનાવવા દો.", saathiIntelligence: "સાથી ઇન્ટેલિજન્સ", personalizedRecommendations: "વ્યક્તિગત ભલામણો સક્રિય છે.", privacy: "ગોપનીયતા અને ડેટા", privacySubtitle: "એપ્લિકેશન દ્વારા ઉપયોગમાં લેવાતી પરવાનગીઓ સંચાલિત કરો", locationAccess: "સ્થાનની પરવાનગી", locationAccessDescription: "સ્થાનિક હવામાન અને ખેતરની માહિતી માટે તમારું સ્થાન વાપરો.", localStorageNotice: "આ પ્રોટોટાઇપમાં તમારી સેટિંગ્સ સ્થાનિક રીતે સંગ્રહાય છે. પછી બેકએન્ડ ડેટા સંગ્રહ જોડાઈ શકે છે.", reset: "સેટિંગ્સ રીસેટ કરો" },
+    },
+  },
+};
+
 i18n
   .use(initReactI18next)
   .init({
@@ -891,6 +1018,22 @@ for (const language of supportedLanguages) {
     true,
     true,
   );
+  i18n.addResourceBundle(
+    language,
+    "translation",
+    missingTranslations[language].translation,
+    true,
+    true,
+  );
+  if (language !== "en") {
+    i18n.addResourceBundle(
+      language,
+      "translation",
+      localeCompletion[language].translation,
+      true,
+      true,
+    );
+  }
 }
 
 i18n.on("languageChanged", (language) => {
