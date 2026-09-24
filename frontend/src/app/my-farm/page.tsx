@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { CSSProperties } from "react";
 
 import AppShell from "@/components/layout/AppShell";
@@ -28,6 +29,7 @@ import {
    ========================================================= */
 
 export default function MyFarmPage() {
+  const { t } = useTranslation();
 
   /* ---------------------------------------------------------
      FARM STATE
@@ -146,7 +148,7 @@ export default function MyFarmPage() {
               letterSpacing: "-0.7px",
             }}
           >
-            My Farm
+            {t("farm.title")}
           </h1>
 
 
@@ -157,7 +159,7 @@ export default function MyFarmPage() {
               fontSize: "13px",
             }}
           >
-            Manage your farm profile and crop information.
+            {t("farm.subtitle")}
           </p>
 
         </div>
@@ -196,7 +198,7 @@ export default function MyFarmPage() {
 
             <Pencil size={15} />
 
-            Edit Farm
+            {t("farm.editFarm")}
 
           </button>
 
@@ -231,7 +233,7 @@ export default function MyFarmPage() {
 
             <Save size={15} />
 
-            Save Changes
+            {t("farm.saveChanges")}
 
           </button>
 
@@ -482,7 +484,7 @@ export default function MyFarmPage() {
                 size={19}
               />
             }
-            title="Farm Location"
+            title={t("farm.location")}
             color="#8b5cf6"
           >
 
@@ -524,7 +526,7 @@ export default function MyFarmPage() {
                 size={19}
               />
             }
-            title="Crop"
+            title={t("farm.crop")}
             color="#22c55e"
           >
 
@@ -584,7 +586,7 @@ export default function MyFarmPage() {
                 size={19}
               />
             }
-            title="Crop Stage"
+            title={t("farm.stage")}
             color="#60a5fa"
           >
 
@@ -644,7 +646,7 @@ export default function MyFarmPage() {
                 size={19}
               />
             }
-            title="Farm Area"
+            title={t("farm.area")}
             color="#eab308"
           >
 
@@ -688,7 +690,7 @@ export default function MyFarmPage() {
                 size={19}
               />
             }
-            title="Sowing Date"
+            title={t("farm.sowingDate")}
             color="#a78bfa"
           >
 
@@ -732,7 +734,7 @@ export default function MyFarmPage() {
                 size={19}
               />
             }
-            title="Farm Status"
+            title={t("farm.status")}
             color="#22c55e"
           >
 
@@ -809,7 +811,7 @@ export default function MyFarmPage() {
             icon={
               <Leaf size={18} />
             }
-            title="Crop Health"
+            title={t("farm.cropHealth")}
             value="Good"
             detail="No major stress detected"
             color="#22c55e"
@@ -819,7 +821,7 @@ export default function MyFarmPage() {
             icon={
               <Droplets size={18} />
             }
-            title="Soil Moisture"
+            title={t("farm.soilMoisture")}
             value="68%"
             detail="Moderate moisture level"
             color="#60a5fa"
@@ -829,7 +831,7 @@ export default function MyFarmPage() {
             icon={
               <CloudSun size={18} />
             }
-            title="Weather"
+            title={t("farm.weather")}
             value="26°C"
             detail="Partly cloudy"
             color="#a78bfa"
@@ -839,7 +841,7 @@ export default function MyFarmPage() {
             icon={
               <TrendingUp size={18} />
             }
-            title="Yield Outlook"
+            title={t("dashboard.yieldOutlook")}
             value="+12%"
             detail="Compared with baseline"
             color="#4ade80"
@@ -869,7 +871,7 @@ export default function MyFarmPage() {
           icon={
             <Tractor size={18} />
           }
-          title="Manage Farm"
+          title={t("farm.manageFarm")}
           text="Update your farm information."
         />
 
@@ -877,7 +879,7 @@ export default function MyFarmPage() {
           icon={
             <Leaf size={18} />
           }
-          title="Crop Advisory"
+          title={t("sidebar.cropAdvisory")}
           text="View recommendations for your crop."
         />
 
@@ -885,7 +887,7 @@ export default function MyFarmPage() {
           icon={
             <ShieldCheck size={18} />
           }
-          title="Disease Detection"
+          title={t("sidebar.diseaseDetection")}
           text="Check your crop for diseases."
         />
 

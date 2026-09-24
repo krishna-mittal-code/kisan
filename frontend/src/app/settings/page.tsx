@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   User,
   Bell,
@@ -18,9 +19,11 @@ import {
 } from "lucide-react";
 
 import AppShell from "@/components/layout/AppShell";
+import i18n from "@/i18n/config";
 import toast from "react-hot-toast";
 
 export default function SettingsPage() {
+  const { t } = useTranslation();
   const [farmerName, setFarmerName] = useState("Farmer");
   const [phone, setPhone] = useState("+91 XXXXX XXXXX");
   const [language, setLanguage] = useState("English");
@@ -36,7 +39,7 @@ export default function SettingsPage() {
     useState(true);
 
   function handleSave() {
-    toast.success("Settings saved successfully");
+    toast.success(t("settings.saved"));
   }
 
   function handleReset() {
@@ -52,7 +55,7 @@ export default function SettingsPage() {
     setAiInsights(true);
     setLocationAccess(true);
 
-    toast.success("Settings restored to default");
+    toast.success(t("settings.resetDone"));
   }
 
   return (
@@ -111,7 +114,7 @@ export default function SettingsPage() {
               letterSpacing: "-0.7px",
             }}
           >
-            Settings
+            {t("settings.title")}
           </h1>
 
           <p
@@ -121,8 +124,7 @@ export default function SettingsPage() {
               fontSize: "13px",
             }}
           >
-            Manage your profile, alerts and Saathi
-            preferences.
+            {t("settings.subtitle")}
           </p>
         </div>
 
@@ -150,7 +152,7 @@ export default function SettingsPage() {
           }}
         >
           <Save size={13} />
-          Save Changes
+          {t("settings.saveSettings")}
         </button>
       </section>
 
@@ -160,8 +162,8 @@ export default function SettingsPage() {
 
       <SettingsSection
         icon={<User size={17} />}
-        title="Farmer Profile"
-        subtitle="Your basic account information"
+        title={t("settings.profile")}
+        subtitle={t("settings.profileSubtitle")}
       >
         <div
           style={{
@@ -172,13 +174,13 @@ export default function SettingsPage() {
           }}
         >
           <Field
-            label="Farmer Name"
+            label={t("settings.farmerName")}
             value={farmerName}
             onChange={setFarmerName}
           />
 
           <Field
-            label="Mobile Number"
+            label={t("settings.mobileNumber")}
             value={phone}
             onChange={setPhone}
           />
@@ -210,7 +212,7 @@ export default function SettingsPage() {
               fontWeight: 650,
             }}
           >
-            Your farmer profile is active
+            {t("settings.profileActive")}
           </span>
         </div>
       </SettingsSection>
@@ -221,8 +223,8 @@ export default function SettingsPage() {
 
       <SettingsSection
         icon={<Globe size={17} />}
-        title="Language"
-        subtitle="Choose how Kisan Saathi communicates with you"
+        title={t("settings.language")}
+        subtitle={t("settings.languageSubtitle")}
       >
         <div
           style={{
@@ -240,7 +242,7 @@ export default function SettingsPage() {
                 fontWeight: 700,
               }}
             >
-              App Language
+              {t("settings.appLanguage")}
             </div>
 
             <div
@@ -250,14 +252,24 @@ export default function SettingsPage() {
                 marginTop: "4px",
               }}
             >
-              Select your preferred language.
+              {t("settings.selectLanguage")}
             </div>
           </div>
 
           <select
             value={language}
             onChange={(e) =>
-              setLanguage(e.target.value)
+              (() => {
+                const nextLanguage = e.target.value;
+                setLanguage(nextLanguage);
+                void i18n.changeLanguage(
+                  nextLanguage === "Hindi"
+                    ? "hi"
+                    : nextLanguage === "Gujarati"
+                      ? "gu"
+                      : "en"
+                );
+              })()
             }
             style={{
               minWidth: "150px",
@@ -272,13 +284,9 @@ export default function SettingsPage() {
               cursor: "pointer",
             }}
           >
-            <option>English</option>
-            <option>Hindi</option>
-            <option>Gujarati</option>
-            <option>Marathi</option>
-            <option>Punjabi</option>
-            <option>Tamil</option>
-            <option>Telugu</option>
+            <option value="English">English</option>
+            <option value="Hindi">हिन्दी</option>
+            <option value="Gujarati">ગુજરાતી</option>
           </select>
         </div>
       </SettingsSection>
@@ -289,37 +297,37 @@ export default function SettingsPage() {
 
       <SettingsSection
         icon={<Bell size={17} />}
-        title="Notifications"
-        subtitle="Control which farm alerts you receive"
+        title={t("settings.notifications")}
+        subtitle={t("settings.notificationsSubtitle")}
       >
         <SettingToggle
           icon={<Bell size={15} />}
-          title="Smart Notifications"
-          description="Receive important updates about your farm."
+          title={t("settings.smartNotifications")}
+          description={t("settings.smartNotificationsDescription")}
           enabled={notifications}
           onChange={setNotifications}
         />
 
         <SettingToggle
           icon={<CloudRain size={15} />}
-          title="Weather Alerts"
-          description="Get notified about important weather changes."
+          title={t("settings.weatherAlerts")}
+          description={t("settings.weatherAlertsDescription")}
           enabled={weatherAlerts}
           onChange={setWeatherAlerts}
         />
 
         <SettingToggle
           icon={<Sprout size={15} />}
-          title="Disease & Crop Alerts"
-          description="Receive crop health and disease warnings."
+          title={t("settings.diseaseAlerts")}
+          description={t("settings.diseaseAlertsDescription")}
           enabled={diseaseAlerts}
           onChange={setDiseaseAlerts}
         />
 
         <SettingToggle
           icon={<CloudRain size={15} />}
-          title="Irrigation Alerts"
-          description="Get reminders when irrigation may be required."
+          title={t("settings.irrigationAlerts")}
+          description={t("settings.irrigationAlertsDescription")}
           enabled={irrigationAlerts}
           onChange={setIrrigationAlerts}
         />
@@ -331,13 +339,13 @@ export default function SettingsPage() {
 
       <SettingsSection
         icon={<Bot size={17} />}
-        title="Saathi AI"
-        subtitle="Configure your farming assistant"
+        title={t("settings.saathiAi")}
+        subtitle={t("settings.saathiAiSubtitle")}
       >
         <SettingToggle
           icon={<Bot size={15} />}
-          title="AI Farm Insights"
-          description="Allow Saathi to generate smart farming recommendations."
+          title={t("settings.aiInsights")}
+          description={t("settings.aiInsightsDescription")}
           enabled={aiInsights}
           onChange={setAiInsights}
         />
@@ -384,7 +392,7 @@ export default function SettingsPage() {
                   fontWeight: 700,
                 }}
               >
-                Saathi Intelligence
+                {t("settings.saathiIntelligence")}
               </div>
 
               <div
@@ -394,8 +402,7 @@ export default function SettingsPage() {
                   marginTop: "2px",
                 }}
               >
-                Personalized recommendations are
-                enabled.
+                {t("settings.personalizedRecommendations")}
               </div>
             </div>
           </div>
@@ -408,13 +415,13 @@ export default function SettingsPage() {
 
       <SettingsSection
         icon={<Shield size={17} />}
-        title="Privacy & Data"
-        subtitle="Manage permissions used by the application"
+        title={t("settings.privacy")}
+        subtitle={t("settings.privacySubtitle")}
       >
         <SettingToggle
           icon={<Smartphone size={15} />}
-          title="Location Access"
-          description="Use your location for local weather and farm insights."
+          title={t("settings.locationAccess")}
+          description={t("settings.locationAccessDescription")}
           enabled={locationAccess}
           onChange={setLocationAccess}
         />
@@ -445,9 +452,7 @@ export default function SettingsPage() {
               lineHeight: 1.5,
             }}
           >
-            Your settings are stored locally in
-            this prototype. Backend data storage
-            can be connected later.
+            {t("settings.localStorageNotice")}
           </span>
         </div>
       </SettingsSection>
@@ -483,7 +488,7 @@ export default function SettingsPage() {
           }}
         >
           <RotateCcw size={11} />
-          Reset Settings
+          {t("settings.reset")}
         </button>
       </section>
     </AppShell>

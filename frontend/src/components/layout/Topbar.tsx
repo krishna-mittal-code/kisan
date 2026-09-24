@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import {
   Search,
   Globe2,
@@ -30,71 +31,71 @@ import SaathiAssistant from "./SaathiAssistant";
 
 const searchItems = [
   {
-    title: "Dashboard",
-    description: "Farm overview and AI insights",
+    titleKey: "sidebar.dashboard",
+    descriptionKey: "dashboard.overview",
     keywords: "dashboard home overview",
     route: "/",
     icon: <Sprout size={15} />,
   },
   {
-    title: "My Farm",
-    description: "Farm details and crop information",
+    titleKey: "sidebar.myFarm",
+    descriptionKey: "topbar.searchFarmDescription",
     keywords: "farm field crop wheat",
     route: "/my-farm",
     icon: <Sprout size={15} />,
   },
   {
-    title: "Disease Detection",
-    description: "Upload a crop image for AI analysis",
+    titleKey: "sidebar.diseaseDetection",
+    descriptionKey: "disease.subtitle",
     keywords: "disease leaf image analysis ai",
     route: "/disease-detection",
     icon: <Bug size={15} />,
   },
   {
-    title: "Crop Advisory",
-    description: "Crop-specific farming recommendations",
+    titleKey: "sidebar.cropAdvisory",
+    descriptionKey: "crop.subtitle",
     keywords: "crop advice advisory farming",
     route: "/crop-advisory",
     icon: <Sprout size={15} />,
   },
   {
-    title: "Weather & Forecast",
-    description: "Weather conditions and forecast",
+    titleKey: "sidebar.weather",
+    descriptionKey: "weather.subtitle",
     keywords: "weather rain temperature humidity forecast",
     route: "/weather",
     icon: <CloudRain size={15} />,
   },
   {
-    title: "Market Prices",
-    description: "Crop prices and mandi information",
+    titleKey: "sidebar.marketPrices",
+    descriptionKey: "market.subtitle",
     keywords: "market mandi price wheat rice maize",
     route: "/market-prices",
     icon: <MapPin size={15} />,
   },
   {
-    title: "Knowledge Hub",
-    description: "Farming guides and learning resources",
+    titleKey: "sidebar.knowledgeHub",
+    descriptionKey: "knowledge.subtitle",
     keywords: "knowledge guides farming learn",
     route: "/knowledge-hub",
     icon: <MessageCircle size={15} />,
   },
   {
-    title: "Expert Connect",
-    description: "Connect with agriculture experts",
+    titleKey: "sidebar.expertConnect",
+    descriptionKey: "expert.subtitle",
     keywords: "expert doctor consultation help",
     route: "/expert-connect",
     icon: <User size={15} />,
   },
   {
-    title: "My Alerts",
-    description: "Weather, disease and farm alerts",
+    titleKey: "sidebar.alerts",
+    descriptionKey: "alerts.subtitle",
     keywords: "alerts notification warning critical",
     route: "/alerts",
     icon: <Bell size={15} />,
   },
   {
-    title: "Settings",
-    description: "Manage your Kisan Saathi preferences",
+    titleKey: "sidebar.settings",
+    descriptionKey: "settings.subtitle",
     keywords: "settings profile language notification",
     route: "/settings",
     icon: <Settings size={15} />,
@@ -108,25 +109,25 @@ const searchItems = [
 const recentAlerts = [
   {
     id: 1,
-    title: "Disease Risk Increased",
-    message: "Higher humidity may increase crop disease risk.",
-    type: "Critical",
+    titleKey: "alerts.diseaseRiskIncreased",
+    messageKey: "alerts.humidityDiseaseRisk",
+    typeKey: "alerts.critical",
     icon: <Bug size={15} />,
     color: "#fb7185",
   },
   {
     id: 2,
-    title: "Rain Expected Tomorrow",
-    message: "Review irrigation plans before rainfall.",
-    type: "Warning",
+    titleKey: "alerts.rainExpected",
+    messageKey: "alerts.reviewIrrigation",
+    typeKey: "alerts.warning",
     icon: <CloudRain size={15} />,
     color: "#60a5fa",
   },
   {
     id: 3,
-    title: "Irrigation Review",
-    message: "Moderate irrigation demand detected.",
-    type: "Info",
+    titleKey: "alerts.irrigationReview",
+    messageKey: "alerts.moderateIrrigation",
+    typeKey: "alerts.info",
     icon: <Droplets size={15} />,
     color: "#38bdf8",
   },
@@ -138,6 +139,7 @@ const recentAlerts = [
 
 export default function Topbar() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -145,11 +147,11 @@ export default function Topbar() {
   const [saathiOpen, setSaathiOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [currentLangCode, setCurrentLangCode] = useState("en");
+  const currentLangCode = i18n.language.split("-")[0];
   
   // Floating AI Guide state
   const [showTooltip, setShowTooltip] = useState(true);
-  const [globalDiseaseData, setGlobalDiseaseData] = useState<any>(null);
+  const [globalDiseaseData, setGlobalDiseaseData] = useState<unknown>(null);
 
   const searchRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
@@ -161,7 +163,7 @@ export default function Topbar() {
     normalizedSearch.length === 0
       ? []
       : searchItems.filter((item) =>
-          `${item.title} ${item.description} ${item.keywords}`
+          `${item.titleKey} ${item.descriptionKey} ${item.keywords}`
             .toLowerCase()
             .includes(normalizedSearch)
         );
@@ -180,13 +182,6 @@ export default function Topbar() {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-
-  // Update Language
-  useEffect(() => {
-    if (i18n.language) {
-      setCurrentLangCode(i18n.language.split("-")[0]);
-    }
-  }, [i18n.language]);
 
   // Tooltip fade out after 3 seconds
   useEffect(() => {
@@ -224,15 +219,14 @@ export default function Topbar() {
       return;
     }
     if (search.trim()) {
-      toast.error(`No Kisan Saathi feature found for "${search}".`);
+      toast.error(t("sidebar.noFeatureFound", { query: search }));
     }
   }
 
   function changeLanguage(language: string) {
     i18n.changeLanguage(language);
-    setCurrentLangCode(language);
     const names: Record<string, string> = { en: "English", hi: "Hindi", gu: "Gujarati" };
-    toast.success(`Language changed to ${names[language] ?? language}`);
+    toast.success(t("sidebar.languageChanged", { language: names[language] ?? language }));
     setLanguageOpen(false);
   }
 
@@ -266,7 +260,7 @@ export default function Topbar() {
                 setSearchOpen(true);
               }}
               onFocus={() => setSearchOpen(true)}
-              placeholder="Search village, district or farm location..."
+              placeholder={t("topbar.searchPlaceholder")}
               style={{
                 width: "100%", height: "54px", boxSizing: "border-box", padding: "0 45px", borderRadius: "13px", border: "1px solid rgba(99,102,241,0.20)", outline: "none", background: "linear-gradient(135deg, rgba(24,20,62,0.85), rgba(13,20,47,0.88))", color: "#e2e8f0", fontSize: "13px"
               }}
@@ -285,14 +279,14 @@ export default function Topbar() {
                   <button key={item.route} type="button" onClick={() => navigate(item.route)} style={{ width: "100%", display: "flex", alignItems: "center", gap: "11px", padding: "10px", border: "none", borderRadius: "9px", background: "transparent", color: "#e2e8f0", textAlign: "left", cursor: "pointer" }}>
                     <div style={{ width: "30px", height: "30px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", background: "rgba(96,165,250,0.08)", color: "#60a5fa" }}>{item.icon}</div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: "10px", fontWeight: 700 }}>{item.title}</div>
-                      <div style={{ marginTop: "3px", color: "#64748b", fontSize: "8px" }}>{item.description}</div>
+                      <div style={{ fontSize: "10px", fontWeight: 700 }}>{t(item.titleKey)}</div>
+                      <div style={{ marginTop: "3px", color: "#64748b", fontSize: "8px" }}>{t(item.descriptionKey)}</div>
                     </div>
                     <ArrowRight size={13} color="#475569" />
                   </button>
                 ))
               ) : (
-                <div style={{ padding: "20px", textAlign: "center", color: "#64748b", fontSize: "9px" }}>No Kisan Saathi feature found.</div>
+                <div style={{ padding: "20px", textAlign: "center", color: "#64748b", fontSize: "9px" }}>{t("topbar.noFeatureFound")}</div>
               )}
             </div>
           )}
@@ -302,7 +296,7 @@ export default function Topbar() {
           <button type="button" onClick={() => setLanguageOpen((current) => !current)} style={{ height: "54px", minWidth: "150px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", padding: "0 14px", borderRadius: "12px", border: "1px solid rgba(99,102,241,0.20)", background: "rgba(20,18,55,0.80)", color: "#e2e8f0", cursor: "pointer" }}>
             <span style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "16px", fontWeight: 700 }}>
               <Globe2 size={16} color="#60a5fa" />
-              {currentLangCode === "hi" ? "Hindi" : currentLangCode === "gu" ? "Gujarati" : "English"}
+              {currentLangCode === "hi" ? "हिन्दी" : currentLangCode === "gu" ? "ગુજરાતી" : "English"}
             </span>
             <ChevronDown size={14} color="#64748b" />
           </button>
@@ -330,9 +324,9 @@ export default function Topbar() {
           {notificationOpen && (
             <div style={{ position: "absolute", top: "61px", right: 0, width: "330px", padding: "10px", borderRadius: "14px", background: "rgba(10,15,36,0.98)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 25px 60px rgba(0,0,0,0.5)" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 5px 10px" }}>
-                <div style={{ color: "#ffffff", fontSize: "15px", fontWeight: 750 }}>Recent Alerts</div>
+                <div style={{ color: "#ffffff", fontSize: "15px", fontWeight: 750 }}>{t("topbar.recentAlerts")}</div>
                 <button type="button" onClick={() => navigate("/alerts")} style={{ display: "flex", alignItems: "center", gap: "4px", border: "none", background: "transparent", color: "#60a5fa", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}>
-                  View all <ArrowRight size={10} />
+                  {t("topbar.viewAll")} <ArrowRight size={10} />
                 </button>
               </div>
 
@@ -340,10 +334,10 @@ export default function Topbar() {
                 <button key={alert.id} type="button" onClick={() => navigate("/alerts")} style={{ width: "100%", display: "flex", alignItems: "flex-start", gap: "9px", padding: "10px 7px", border: "none", borderTop: "1px solid rgba(99,102,241,0.07)", background: "transparent", textAlign: "left", cursor: "pointer" }}>
                   <div style={{ width: "29px", height: "29px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", background: `${alert.color}12`, color: alert.color, flexShrink: 0 }}>{alert.icon}</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ color: "#e2e8f0", fontSize: "12px", fontWeight: 700 }}>{alert.title}</div>
-                    <div style={{ color: "#64748b", fontSize: "12px", lineHeight: 1.5, marginTop: "3px" }}>{alert.message}</div>
+                    <div style={{ color: "#e2e8f0", fontSize: "12px", fontWeight: 700 }}>{t(alert.titleKey)}</div>
+                    <div style={{ color: "#64748b", fontSize: "12px", lineHeight: 1.5, marginTop: "3px" }}>{t(alert.messageKey)}</div>
                   </div>
-                  <span style={{ color: alert.color, fontSize: "12px", fontWeight: 700 }}>{alert.type}</span>
+                  <span style={{ color: alert.color, fontSize: "12px", fontWeight: 700 }}>{t(alert.typeKey)}</span>
                 </button>
               ))}
             </div>
@@ -356,16 +350,16 @@ export default function Topbar() {
               <User size={21} />
             </div>
             <div style={{ textAlign: "left", minWidth: "85px" }}>
-              <div style={{ fontSize: "16px", fontWeight: 750, color: "#ffffff" }}>Hello, Farmer</div>
-              <div style={{ marginTop: "2px", color: "#64748b", fontSize: "16px" }}>ID: 240033</div>
+              <div style={{ fontSize: "16px", fontWeight: 750, color: "#ffffff" }}>{t("topbar.hello")}</div>
+              <div style={{ marginTop: "2px", color: "#64748b", fontSize: "16px" }}>{t("topbar.id", { id: "240033" })}</div>
             </div>
           </button>
 
           {profileOpen && (
             <div style={{ position: "absolute", top: "61px", right: 0, width: "200px", padding: "7px", borderRadius: "13px", background: "rgba(10,15,36,0.98)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.45)" }}>
-              <button type="button" onClick={() => navigate("/my-farm")} style={menuButtonStyle}><Sprout size={14} /> My Farm</button>
-              <button type="button" onClick={() => navigate("/settings")} style={menuButtonStyle}><Settings size={14} /> Settings</button>
-              <button type="button" onClick={() => navigate("/alerts")} style={menuButtonStyle}><Bell size={14} /> My Alerts</button>
+              <button type="button" onClick={() => navigate("/my-farm")} style={menuButtonStyle}><Sprout size={14} /> {t("sidebar.myFarm")}</button>
+              <button type="button" onClick={() => navigate("/settings")} style={menuButtonStyle}><Settings size={14} /> {t("sidebar.settings")}</button>
+              <button type="button" onClick={() => navigate("/alerts")} style={menuButtonStyle}><Bell size={14} /> {t("sidebar.alerts")}</button>
             </div>
           )}
         </div>
@@ -396,7 +390,7 @@ export default function Topbar() {
               transition: "opacity 0.5s ease" 
             }}
           >
-            AI Guide - Ask me anything!
+            {t("sidebar.aiGuide")}
           </div>
         )}
         <button

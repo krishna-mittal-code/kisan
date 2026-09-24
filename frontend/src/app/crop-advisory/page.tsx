@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import AppShell from "@/components/layout/AppShell";
 
@@ -38,6 +39,7 @@ type AdvisoryCategory =
    ========================================================= */
 
 export default function CropAdvisoryPage() {
+  const { t } = useTranslation();
 
   const [crop, setCrop] =
     useState("Wheat");
@@ -263,7 +265,7 @@ export default function CropAdvisoryPage() {
               letterSpacing: "-0.7px",
             }}
           >
-            Crop Advisory
+            {t("crop.title")}
           </h1>
 
 
@@ -274,7 +276,7 @@ export default function CropAdvisoryPage() {
               fontSize: "13px",
             }}
           >
-            Practical guidance based on your crop and its current growth stage.
+            {t("crop.subtitle")}
           </p>
 
         </div>
@@ -345,7 +347,7 @@ export default function CropAdvisoryPage() {
         >
 
           <Selector
-            label="Select Crop"
+            label={t("crop.selectCrop")}
             value={crop}
             onChange={setCrop}
             options={[
@@ -357,7 +359,7 @@ export default function CropAdvisoryPage() {
           />
 
           <Selector
-            label="Crop Stage"
+            label={t("crop.cropStage")}
             value={stage}
             onChange={setStage}
             options={[
@@ -850,7 +852,7 @@ export default function CropAdvisoryPage() {
               icon={
                 <Sun size={14} />
               }
-              label="Temperature"
+              label={t("weather.temperature")}
               value="26°C"
               color="#facc15"
             />
@@ -859,7 +861,7 @@ export default function CropAdvisoryPage() {
               icon={
                 <Droplets size={14} />
               }
-              label="Humidity"
+              label={t("weather.humidity")}
               value="68%"
               color="#60a5fa"
             />
@@ -868,7 +870,7 @@ export default function CropAdvisoryPage() {
               icon={
                 <Wind size={14} />
               }
-              label="Wind"
+              label={t("weather.wind")}
               value="12 km/h"
               color="#a78bfa"
             />
@@ -1069,7 +1071,7 @@ export default function CropAdvisoryPage() {
 
           <ActionCard
             number="01"
-            title="Inspect Field"
+            title={t("crop.inspectField")}
             text="Walk through the crop and look for visible stress."
             icon={<Leaf size={17} />}
             color="#4ade80"
@@ -1077,7 +1079,7 @@ export default function CropAdvisoryPage() {
 
           <ActionCard
             number="02"
-            title="Check Moisture"
+            title={t("crop.checkMoisture")}
             text="Assess soil moisture before deciding irrigation."
             icon={<Droplets size={17} />}
             color="#60a5fa"
@@ -1085,7 +1087,7 @@ export default function CropAdvisoryPage() {
 
           <ActionCard
             number="03"
-            title="Monitor Disease"
+            title={t("crop.monitorDisease")}
             text="Look for early signs of leaf discoloration or rust."
             icon={<ShieldCheck size={17} />}
             color="#a78bfa"
@@ -1093,7 +1095,7 @@ export default function CropAdvisoryPage() {
 
           <ActionCard
             number="04"
-            title="Review Growth"
+            title={t("crop.reviewGrowth")}
             text="Check whether crop growth is uniform across the field."
             icon={<Activity size={17} />}
             color="#facc15"

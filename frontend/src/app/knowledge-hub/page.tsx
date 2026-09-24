@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AppShell from "@/components/layout/AppShell";
 
 import {
@@ -128,6 +129,7 @@ const categories = [
    ========================================================= */
 
 export default function KnowledgeHubPage() {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [selectedArticle, setSelectedArticle] =
@@ -216,7 +218,7 @@ export default function KnowledgeHubPage() {
                 color: "#ffffff",
               }}
             >
-              Knowledge Hub
+              {t("knowledge.title")}
             </h1>
 
             <p
@@ -226,8 +228,7 @@ export default function KnowledgeHubPage() {
                 fontSize: "13px",
               }}
             >
-              Practical farming knowledge to help you make
-              informed field decisions.
+              {t("knowledge.subtitle")}
             </p>
           </div>
 
@@ -454,7 +455,7 @@ export default function KnowledgeHubPage() {
             onChange={(e) =>
               setSearch(e.target.value)
             }
-            placeholder="Search farming guides, diseases, irrigation..."
+            placeholder={t("knowledge.search")}
             style={{
               width: "100%",
               padding:
@@ -530,21 +531,21 @@ export default function KnowledgeHubPage() {
       >
         <QuickLearn
           icon={<Leaf size={17} />}
-          title="Crop Health"
+          title={t("knowledge.cropHealth")}
           text="Monitor leaves, stems and overall crop condition."
           color="#4ade80"
         />
 
         <QuickLearn
           icon={<Droplets size={17} />}
-          title="Water Management"
+          title={t("knowledge.waterManagement")}
           text="Understand irrigation timing and rainfall impact."
           color="#60a5fa"
         />
 
         <QuickLearn
           icon={<ShieldCheck size={17} />}
-          title="Disease Awareness"
+          title={t("knowledge.diseaseAwareness")}
           text="Learn the signs that require closer inspection."
           color="#facc15"
         />

@@ -300,7 +300,7 @@ export default function Dashboard() {
                 letterSpacing: "-0.8px",
               }}
             >
-              Good morning, Farmer 👋
+              {t("dashboard.greeting")}
             </h1>
 
             <p
@@ -310,7 +310,7 @@ export default function Dashboard() {
                 fontSize: "16px",
               }}
             >
-              Here is your farm intelligence for today.
+              {t("dashboard.todayOverview")}
             </p>
           </div>
 
@@ -348,7 +348,7 @@ export default function Dashboard() {
                   fontWeight: 750,
                 }}
               >
-                Farm Status
+                {t("farm.status")}
               </div>
 
               <div
@@ -358,7 +358,7 @@ export default function Dashboard() {
                   marginTop: "4px",
                 }}
               >
-                Monitoring active
+                {t("farm.monitoringActive")}
               </div>
             </div>
           </div>
@@ -435,7 +435,7 @@ export default function Dashboard() {
                 }}
               >
                 <MapPin size={16} />
-                Ghaziabad, Uttar Pradesh
+                {t("farm.defaultLocation")}
               </div>
 
               <h2
@@ -446,7 +446,7 @@ export default function Dashboard() {
                   fontWeight: 800,
                 }}
               >
-                Wheat Field
+                {t("farm.wheatField")}
               </h2>
 
               <p
@@ -456,7 +456,7 @@ export default function Dashboard() {
                   fontSize: "15px",
                 }}
               >
-                Vegetative stage • 15 Nov 2025 sowing
+                {t("farm.vegetativeSowing")}
               </p>
 
               <div
@@ -475,7 +475,7 @@ export default function Dashboard() {
 
                 <StatusPill
                   icon={<CalendarDays size={16} />}
-                  text="Day 129"
+                  text={t("farm.dayCount", { count: 129 })}
                   color="#60a5fa"
                 />
 
@@ -1171,7 +1171,7 @@ export default function Dashboard() {
                   lineHeight: 1.6,
                 }}
               >
-                Upload a clear image of your crop leaf. Kisan Saathi will send it to the AI disease-analysis system and display the detected condition and recommended actions.
+                {t("disease.dashboardUploadDescription")}
               </p>
             </div>
 
@@ -1225,7 +1225,7 @@ export default function Dashboard() {
                   <div style={{ position: "relative" }}>
                     <img
                       src={uploadedImage}
-                      alt="Uploaded crop"
+                      alt={t("disease.uploadedCropAlt")}
                       style={{
                         width: "180px",
                         height: "140px",
@@ -1475,7 +1475,7 @@ export default function Dashboard() {
                         lineHeight: 1.6,
                       }}
                     >
-                      Upload a crop image to receive disease prediction, confidence and recommended actions.
+                      {t("disease.dashboardEmptyDescription")}
                     </p>
                   </div>
 

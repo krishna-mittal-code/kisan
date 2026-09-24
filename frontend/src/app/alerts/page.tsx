@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AppShell from "@/components/layout/AppShell";
 
 import {
@@ -42,9 +43,9 @@ type FarmAlert = {
   id: number;
   type: AlertType;
   severity: AlertSeverity;
-  title: string;
-  message: string;
-  time: string;
+  titleKey: string;
+  messageKey: string;
+  timeKey: string;
   unread: boolean;
 };
 
@@ -57,10 +58,9 @@ const initialAlerts: FarmAlert[] = [
     id: 1,
     type: "Weather",
     severity: "Warning",
-    title: "Rain Expected Tomorrow",
-    message:
-      "Rain probability is expected to increase. Review irrigation plans before the rainfall window.",
-    time: "20 min ago",
+    titleKey: "alerts.rainExpected",
+    messageKey: "alerts.reviewIrrigationWindow",
+    timeKey: "alerts.time20Min",
     unread: true,
   },
 
@@ -68,10 +68,9 @@ const initialAlerts: FarmAlert[] = [
     id: 2,
     type: "Disease",
     severity: "Critical",
-    title: "Disease Risk Increased",
-    message:
-      "Higher humidity conditions may increase the possibility of crop disease. Inspect leaves and affected areas.",
-    time: "1 hour ago",
+    titleKey: "alerts.diseaseRiskIncreased",
+    messageKey: "alerts.humidityDiseaseRiskLong",
+    timeKey: "alerts.time1Hour",
     unread: true,
   },
 
@@ -79,10 +78,9 @@ const initialAlerts: FarmAlert[] = [
     id: 3,
     type: "Irrigation",
     severity: "Info",
-    title: "Irrigation Review",
-    message:
-      "Current weather conditions indicate moderate irrigation demand for your field.",
-    time: "3 hours ago",
+    titleKey: "alerts.irrigationReview",
+    messageKey: "alerts.moderateIrrigationLong",
+    timeKey: "alerts.time3Hours",
     unread: true,
   },
 
@@ -90,10 +88,9 @@ const initialAlerts: FarmAlert[] = [
     id: 4,
     type: "Crop",
     severity: "Info",
-    title: "Crop Growth Update",
-    message:
-      "Your wheat crop is currently in an active development stage. Continue routine field monitoring.",
-    time: "Yesterday",
+    titleKey: "alerts.cropGrowthUpdate",
+    messageKey: "alerts.wheatGrowth",
+    timeKey: "common.yesterday",
     unread: false,
   },
 
@@ -101,10 +98,9 @@ const initialAlerts: FarmAlert[] = [
     id: 5,
     type: "Weather",
     severity: "Warning",
-    title: "Humidity Increasing",
-    message:
-      "Humidity levels are expected to remain elevated. Monitor the crop after rainfall.",
-    time: "Yesterday",
+    titleKey: "alerts.humidityIncreasing",
+    messageKey: "alerts.monitorAfterRain",
+    timeKey: "common.yesterday",
     unread: false,
   },
 
@@ -112,10 +108,9 @@ const initialAlerts: FarmAlert[] = [
     id: 6,
     type: "Crop",
     severity: "Info",
-    title: "Field Inspection Reminder",
-    message:
-      "A routine crop inspection can help identify changes in plant health early.",
-    time: "2 days ago",
+    titleKey: "alerts.fieldInspection",
+    messageKey: "alerts.routineInspection",
+    timeKey: "alerts.time2Days",
     unread: false,
   },
 ];
@@ -136,6 +131,7 @@ const filters: AlertFilter[] = [
    ========================================================= */
 
 export default function AlertsPage() {
+  const { t } = useTranslation();
   const [alerts, setAlerts] =
     useState<FarmAlert[]>(initialAlerts);
 
@@ -331,7 +327,7 @@ export default function AlertsPage() {
               letterSpacing: "-0.7px",
             }}
           >
-            My Alerts
+              {t("alerts.title")}
           </h1>
 
           <p
@@ -341,8 +337,7 @@ export default function AlertsPage() {
               fontSize: "13px",
             }}
           >
-            Stay updated about weather, crop health
-            and important farm conditions.
+            {t("alerts.subtitle")}
           </p>
         </div>
 
@@ -366,7 +361,7 @@ export default function AlertsPage() {
         >
           <Bell size={14} />
 
-          {unreadCount} Unread
+          {unreadCount} {t("alerts.unread")}
         </div>
       </section>
 
@@ -386,21 +381,21 @@ export default function AlertsPage() {
         <AlertSummary
           icon={<Bell size={17} />}
           value={String(unreadCount)}
-          label="Unread Alerts"
+          label={t("alerts.unreadAlerts")}
           color="#facc15"
         />
 
         <AlertSummary
           icon={<AlertTriangle size={17} />}
           value={String(criticalCount)}
-          label="Critical Alerts"
+          label={t("alerts.criticalAlerts")}
           color="#fb7185"
         />
 
         <AlertSummary
           icon={<CheckCircle2 size={17} />}
           value={String(readCount)}
-          label="Read Alerts"
+          label={t("alerts.readAlerts")}
           color="#4ade80"
         />
       </section>
@@ -469,7 +464,7 @@ export default function AlertsPage() {
                     : "none",
                 }}
               >
-                <span>{item}</span>
+                <span>{t(`alerts.${item.toLowerCase()}`)}</span>
 
                 <span
                   style={{
@@ -533,7 +528,7 @@ export default function AlertsPage() {
             }}
           >
             <Check size={11} />
-            Mark All Read
+            {t("alerts.markAllRead")}
           </button>
 
           <button
@@ -564,7 +559,7 @@ export default function AlertsPage() {
             }}
           >
             <Trash2 size={11} />
-            Clear Read
+            {t("alerts.clearRead")}
           </button>
         </div>
       </section>
@@ -591,7 +586,7 @@ export default function AlertsPage() {
                 fontWeight: 750,
               }}
             >
-              Recent Alerts
+              {t("alerts.recentAlerts")}
             </h3>
 
             <p
@@ -601,11 +596,7 @@ export default function AlertsPage() {
                 fontSize: "9px",
               }}
             >
-              {filteredAlerts.length}{" "}
-              {filter === "All"
-                ? "alerts"
-                : `${filter.toLowerCase()} alerts`}{" "}
-              shown
+              {t("alerts.shownCount", { count: filteredAlerts.length, filter: filter === "All" ? t("alerts.all") : t(`alerts.${filter.toLowerCase()}`) })}
             </p>
           </div>
         </div>
@@ -678,7 +669,7 @@ export default function AlertsPage() {
               fontWeight: 700,
             }}
           >
-            Smart Alert Monitoring
+            {t("alerts.smartMonitoring")}
           </div>
 
           <div
@@ -689,9 +680,7 @@ export default function AlertsPage() {
               lineHeight: 1.6,
             }}
           >
-            Kisan Saathi can combine weather,
-            crop-health and farm information to
-            surface important alerts.
+            {t("alerts.monitoringDescription")}
           </div>
         </div>
       </section>
@@ -710,6 +699,7 @@ function AlertCard({
   alert: FarmAlert;
   onRead: () => void;
 }) {
+  const { t } = useTranslation();
   const config = getAlertConfig(
     alert.type,
     alert.severity
@@ -802,7 +792,7 @@ function AlertCard({
                 fontWeight: 750,
               }}
             >
-              {alert.title}
+              {t(alert.titleKey)}
             </h4>
 
             <span
@@ -817,7 +807,7 @@ function AlertCard({
                 fontWeight: 700,
               }}
             >
-              {alert.severity}
+              {t(`alerts.${alert.severity.toLowerCase()}`)}
             </span>
           </div>
 
@@ -830,7 +820,7 @@ function AlertCard({
               maxWidth: "700px",
             }}
           >
-            {alert.message}
+            {t(alert.messageKey)}
           </p>
 
           <div
@@ -851,7 +841,7 @@ function AlertCard({
               }}
             >
               <Clock size={10} />
-              {alert.time}
+              {t(alert.timeKey)}
             </span>
 
             <span
@@ -860,7 +850,7 @@ function AlertCard({
                 fontSize: "8px",
               }}
             >
-              {alert.type}
+              {t(`alerts.${alert.type.toLowerCase()}`)}
             </span>
           </div>
         </div>
@@ -889,7 +879,7 @@ function AlertCard({
             }}
           >
             <Check size={11} />
-            Read
+            {t("alerts.read")}
           </button>
         )}
       </div>
@@ -1009,6 +999,7 @@ function EmptyState({
 }: {
   filter: AlertFilter;
 }) {
+  const { t } = useTranslation();
   return (
     <div
       className="glass-card"
@@ -1042,9 +1033,9 @@ function EmptyState({
           fontWeight: 750,
         }}
       >
-        No {filter !== "All"
-          ? filter.toLowerCase()
-          : ""} alerts
+        {t("alerts.noFilteredAlerts", {
+          filter: filter !== "All" ? t(`alerts.${filter.toLowerCase()}`) : "",
+        })}
       </h3>
 
       <p
@@ -1054,8 +1045,7 @@ function EmptyState({
           fontSize: "9px",
         }}
       >
-        There are currently no alerts matching
-        this filter.
+        {t("alerts.noFilteredAlertsDescription")}
       </p>
     </div>
   );

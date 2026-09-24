@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -46,6 +47,7 @@ interface AnalysisResult {
    ========================================================= */
 
 export default function DiseaseDetectionPage() {
+  const { t } = useTranslation();
 
   const [uploadedImage, setUploadedImage] =
     useState<string | null>(null);
@@ -82,7 +84,7 @@ export default function DiseaseDetectionPage() {
       setAnalysisResult(null);
 
       toast.success(
-        "Crop image selected successfully."
+        t("disease.imageSelected")
       );
     },
     []
@@ -117,7 +119,7 @@ export default function DiseaseDetectionPage() {
     if (!imageFile) {
 
       toast.error(
-        "Please select a crop image first."
+        t("disease.uploadFirst")
       );
 
       return;
@@ -128,7 +130,7 @@ export default function DiseaseDetectionPage() {
 
     const toastId =
       toast.loading(
-        "AI is analyzing your crop..."
+        t("disease.analyzing")
       );
 
 
@@ -161,7 +163,7 @@ export default function DiseaseDetectionPage() {
 
 
       toast.success(
-        "Disease analysis completed.",
+        t("disease.analysisComplete"),
         {
           id: toastId,
         }
@@ -172,7 +174,7 @@ export default function DiseaseDetectionPage() {
       console.error(error);
 
       toast.error(
-        "Analysis failed. Please make sure the AI backend is running.",
+        t("disease.analysisFailed"),
         {
           id: toastId,
         }
@@ -205,7 +207,7 @@ export default function DiseaseDetectionPage() {
 
   const riskLevel =
     analysisResult?.risk_level ||
-    "Awaiting Analysis";
+    t("disease.awaitingAnalysis");
 
   const confidence =
     analysisResult?.confidence ||
@@ -291,7 +293,7 @@ export default function DiseaseDetectionPage() {
               letterSpacing: "-0.7px",
             }}
           >
-            Disease Detection
+            {t("disease.title")}
           </h1>
 
 
@@ -302,7 +304,7 @@ export default function DiseaseDetectionPage() {
               fontSize: "13px",
             }}
           >
-            Upload a crop image and let Kisan Saathi analyze it with AI.
+            {t("disease.subtitle")}
           </p>
 
         </div>
@@ -367,8 +369,8 @@ export default function DiseaseDetectionPage() {
               size={17}
             />
           }
-          title="Upload"
-          text="Add a clear photo of the crop leaf."
+           title={t("disease.uploadStep")}
+          text={t("disease.uploadInstruction")}
           color="#60a5fa"
         />
 
@@ -379,8 +381,8 @@ export default function DiseaseDetectionPage() {
               size={17}
             />
           }
-          title="AI Analysis"
-          text="The AI model examines the crop image."
+           title={t("disease.analysisStep")}
+           text={t("disease.analysisInstruction")}
           color="#a78bfa"
         />
 
@@ -391,8 +393,8 @@ export default function DiseaseDetectionPage() {
               size={17}
             />
           }
-          title="Get Guidance"
-          text="Receive disease risk and recommended actions."
+           title={t("disease.guidanceStep")}
+           text={t("disease.guidanceInstruction")}
           color="#4ade80"
         />
 
@@ -490,7 +492,7 @@ export default function DiseaseDetectionPage() {
                     color: "#ffffff",
                   }}
                 >
-                  Crop Image
+                  {t("disease.uploadImage")}
                 </div>
 
                 <div
@@ -706,7 +708,7 @@ export default function DiseaseDetectionPage() {
                 >
                   {isDragActive
                     ? "Drop the image here"
-                    : "Upload your crop image"}
+                    : t("disease.uploadImage")}
                 </div>
 
 
@@ -717,7 +719,7 @@ export default function DiseaseDetectionPage() {
                     marginTop: "7px",
                   }}
                 >
-                  Drag & drop or click to browse
+                  {t("disease.dragDrop")}
                 </div>
 
 
@@ -829,7 +831,7 @@ export default function DiseaseDetectionPage() {
                   size={16}
                 />
 
-                Analyze Crop
+                {t("disease.analyze")}
 
               </>
 
@@ -1015,7 +1017,7 @@ export default function DiseaseDetectionPage() {
                       fontSize: "10px",
                     }}
                   >
-                    AI Confidence
+                    {t("disease.confidence")}
                   </span>
 
                   <span
@@ -1084,7 +1086,7 @@ export default function DiseaseDetectionPage() {
                     marginBottom: "9px",
                   }}
                 >
-                  RECOMMENDED ACTIONS
+                  {t("disease.recommendedActions")}
                 </div>
 
 
@@ -1226,7 +1228,7 @@ export default function DiseaseDetectionPage() {
                   fontWeight: 700,
                 }}
               >
-                Awaiting Crop Image
+                {t("disease.awaitingImage")}
               </div>
 
 
@@ -1242,7 +1244,7 @@ export default function DiseaseDetectionPage() {
                   marginTop: "7px",
                 }}
               >
-                Upload a clear image of the crop leaf to start AI disease analysis.
+                {t("disease.awaitingImageText")}
               </div>
 
 
@@ -1296,8 +1298,8 @@ export default function DiseaseDetectionPage() {
           icon={
             <ImageIcon size={16} />
           }
-          title="Use a clear image"
-          text="Make sure the affected leaf is clearly visible."
+           title={t("disease.clearImage")}
+           text={t("disease.clearImageText")}
           color="#60a5fa"
         />
 
@@ -1305,8 +1307,8 @@ export default function DiseaseDetectionPage() {
           icon={
             <Leaf size={16} />
           }
-          title="Capture the affected area"
-          text="Include visible spots, discoloration or damage."
+           title={t("disease.affectedArea")}
+           text={t("disease.affectedAreaText")}
           color="#4ade80"
         />
 
@@ -1314,8 +1316,8 @@ export default function DiseaseDetectionPage() {
           icon={
             <ShieldCheck size={16} />
           }
-          title="Use AI as guidance"
-          text="Combine AI results with local agricultural advice."
+           title={t("disease.aiGuidance")}
+           text={t("disease.aiGuidanceText")}
           color="#a78bfa"
         />
 

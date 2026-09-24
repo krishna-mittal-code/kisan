@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import AppShell from "@/components/layout/AppShell";
 
@@ -90,6 +91,7 @@ const forecast = [
    ========================================================= */
 
 export default function WeatherPage() {
+  const { t } = useTranslation();
 
   const [selectedDay, setSelectedDay] =
     useState(0);
@@ -146,7 +148,7 @@ export default function WeatherPage() {
                 letterSpacing: "1px",
               }}
             >
-              WEATHER INTELLIGENCE
+              {t("weather.intelligence")}
             </span>
 
           </div>
@@ -160,7 +162,7 @@ export default function WeatherPage() {
               letterSpacing: "-0.7px",
             }}
           >
-            Weather & Forecast
+            {t("weather.title")}
           </h1>
 
 
@@ -171,7 +173,7 @@ export default function WeatherPage() {
               fontSize: "13px",
             }}
           >
-            Understand weather conditions before making farm decisions.
+            {t("weather.subtitle")}
           </p>
 
         </div>
@@ -591,35 +593,35 @@ export default function WeatherPage() {
 
         <WeatherMetric
           icon={<Droplets size={17} />}
-          label="Humidity"
+            label={t("weather.humidity")}
           value="68%"
           color="#60a5fa"
         />
 
         <WeatherMetric
           icon={<Wind size={17} />}
-          label="Wind"
+            label={t("weather.wind")}
           value="12 km/h"
           color="#a78bfa"
         />
 
         <WeatherMetric
           icon={<Eye size={17} />}
-          label="Visibility"
+            label={t("weather.visibility")}
           value="8.5 km"
           color="#4ade80"
         />
 
         <WeatherMetric
           icon={<Gauge size={17} />}
-          label="Pressure"
+            label={t("weather.pressure")}
           value="1012 hPa"
           color="#facc15"
         />
 
         <WeatherMetric
           icon={<Umbrella size={17} />}
-          label="Rain Chance"
+            label={t("weather.rainChance")}
           value="20%"
           color="#38bdf8"
         />
@@ -955,28 +957,28 @@ export default function WeatherPage() {
           >
 
             <MiniMetric
-              label="Temperature"
+              label={t("weather.temperature")}
               value={selected.temp}
               icon={<Thermometer size={14} />}
               color="#f87171"
             />
 
             <MiniMetric
-              label="Rain Probability"
+              label={t("weather.rainProbability")}
               value={selected.rain}
               icon={<Droplets size={14} />}
               color="#60a5fa"
             />
 
             <MiniMetric
-              label="Expected High"
+              label={t("weather.expectedHigh")}
               value={selected.high}
               icon={<ArrowUp size={14} />}
               color="#facc15"
             />
 
             <MiniMetric
-              label="Expected Low"
+              label={t("weather.expectedLow")}
               value={selected.low}
               icon={<ArrowDown size={14} />}
               color="#38bdf8"
@@ -1050,7 +1052,7 @@ export default function WeatherPage() {
             icon={
               <Droplets size={14} />
             }
-            title="Irrigation"
+            title={t("weather.irrigation")}
             text={
               selectedDay === 0
                 ? "Moderate irrigation demand."
@@ -1069,7 +1071,7 @@ export default function WeatherPage() {
             icon={
               <Leaf size={14} />
             }
-            title="Crop Growth"
+            title={t("weather.cropGrowth")}
             text="Current conditions support active crop development."
             status="Favourable"
             color="#4ade80"
@@ -1080,7 +1082,7 @@ export default function WeatherPage() {
             icon={
               <ShieldCheck size={14} />
             }
-            title="Disease Risk"
+            title={t("weather.diseaseRisk")}
             text={
               selectedDay >= 1
                 ? "Higher moisture may require closer monitoring."

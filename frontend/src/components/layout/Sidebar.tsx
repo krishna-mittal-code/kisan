@@ -257,7 +257,7 @@ export default function Sidebar() {
             textTransform: "uppercase",
           }}
         >
-          Main Menu
+            {t("sidebar.mainMenu", "Main Menu")}
         </div>
 
         <div
@@ -430,7 +430,7 @@ export default function Sidebar() {
             letterSpacing: "0.5px",
           }}
         >
-          MADE FOR INDIAN FARMERS
+          {t("sidebar.madeForFarmers", "MADE FOR INDIAN FARMERS")}
         </div>
 
         <div
@@ -440,7 +440,7 @@ export default function Sidebar() {
             color: "#334155",
           }}
         >
-          © Kisan Saathi
+          {t("sidebar.copyright", "© Kisan Saathi")}
         </div>
       </div>
     </aside>

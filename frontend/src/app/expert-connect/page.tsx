@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AppShell from "@/components/layout/AppShell";
 
 import {
@@ -119,6 +120,7 @@ const categories = [
    ========================================================= */
 
 export default function ExpertConnectPage() {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
@@ -240,7 +242,7 @@ export default function ExpertConnectPage() {
                 letterSpacing: "-0.7px",
               }}
             >
-              Expert Connect
+              {t("expert.title")}
             </h1>
 
             <p
@@ -250,8 +252,7 @@ export default function ExpertConnectPage() {
                 fontSize: "13px",
               }}
             >
-              Connect with agricultural experts for
-              crop and farm-related guidance.
+              {t("expert.subtitle")}
             </p>
           </div>
 
@@ -472,7 +473,7 @@ export default function ExpertConnectPage() {
             onChange={(e) =>
               setSearch(e.target.value)
             }
-            placeholder="Search expert, specialization or location..."
+            placeholder={t("expert.search")}
             style={{
               width: "100%",
               padding:
@@ -549,21 +550,21 @@ export default function ExpertConnectPage() {
         <StatCard
           icon={<ShieldCheck size={17} />}
           value="24+"
-          label="Verified Experts"
+            label={t("expert.verifiedExperts")}
           color="#4ade80"
         />
 
         <StatCard
           icon={<MessageCircle size={17} />}
           value="180+"
-          label="Consultations"
+            label={t("expert.consultations")}
           color="#60a5fa"
         />
 
         <StatCard
           icon={<Star size={17} />}
           value="4.8"
-          label="Average Rating"
+            label={t("expert.averageRating")}
           color="#facc15"
         />
       </section>
@@ -849,7 +850,7 @@ export default function ExpertConnectPage() {
                         e.target.value
                       )
                     }
-                    placeholder="Describe your crop, symptoms, field condition or question..."
+                    placeholder={t("expert.problemPlaceholder")}
                     rows={5}
                     style={{
                       width: "100%",

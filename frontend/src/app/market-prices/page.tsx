@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AppShell from "@/components/layout/AppShell";
 
 import {
@@ -162,6 +163,7 @@ const markets = [
    ========================================================= */
 
 export default function MarketPricesPage() {
+  const { t } = useTranslation();
   const [selectedCrop, setSelectedCrop] =
     useState<keyof typeof crops>("Wheat");
 
@@ -239,7 +241,7 @@ export default function MarketPricesPage() {
               color: "#ffffff",
             }}
           >
-            Market Prices
+            {t("market.title")}
           </h1>
 
           <p
@@ -249,7 +251,7 @@ export default function MarketPricesPage() {
               fontSize: "13px",
             }}
           >
-            Track crop prices and market movement across nearby mandis.
+            {t("market.subtitle")}
           </p>
         </div>
 
@@ -302,7 +304,7 @@ export default function MarketPricesPage() {
                 fontWeight: 700,
               }}
             >
-              Select Crop
+              {t("market.selectCrop")}
             </span>
           </div>
 
@@ -357,7 +359,7 @@ export default function MarketPricesPage() {
                 fontWeight: 700,
               }}
             >
-              Select Market
+              {t("market.selectMarket")}
             </span>
           </div>
 
@@ -637,28 +639,28 @@ export default function MarketPricesPage() {
       >
         <MarketMetric
           icon={<ArrowDownRight size={16} />}
-          label="Minimum Price"
+          label={t("market.minimumPrice")}
           value={`₹${crop.min.toLocaleString("en-IN")}`}
           color="#60a5fa"
         />
 
         <MarketMetric
           icon={<Activity size={16} />}
-          label="Modal Price"
+          label={t("market.modalPrice")}
           value={`₹${crop.modal.toLocaleString("en-IN")}`}
           color="#4ade80"
         />
 
         <MarketMetric
           icon={<ArrowUpRight size={16} />}
-          label="Maximum Price"
+          label={t("market.maximumPrice")}
           value={`₹${crop.max.toLocaleString("en-IN")}`}
           color="#facc15"
         />
 
         <MarketMetric
           icon={<Package size={16} />}
-          label="Market Arrival"
+          label={t("market.marketArrival")}
           value={crop.arrival}
           color="#c084fc"
         />
