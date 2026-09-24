@@ -188,7 +188,7 @@ export default function ExpertConnectPage() {
           HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           marginBottom: "22px",
         }}
@@ -282,7 +282,7 @@ export default function ExpertConnectPage() {
           HERO
           ===================================================== */}
 
-      <section
+      <section className="expert-hero feature-reveal feature-reveal-2"
         style={{
           position: "relative",
           overflow: "hidden",
@@ -444,8 +444,7 @@ export default function ExpertConnectPage() {
           SEARCH
           ===================================================== */}
 
-      <section
-        className="glass-card"
+      <section className="expert-search feature-reveal feature-reveal-3 glass-card expert-search-card"
         style={{
           padding: "14px",
           marginBottom: "15px",
@@ -495,7 +494,7 @@ export default function ExpertConnectPage() {
           CATEGORY FILTERS
           ===================================================== */}
 
-      <section
+      <section className="expert-categories feature-reveal feature-reveal-4"
         style={{
           display: "flex",
           gap: "8px",
@@ -507,7 +506,7 @@ export default function ExpertConnectPage() {
           const active = category === item;
 
           return (
-            <button
+            <button className="expert-category-button"
               key={item}
               type="button"
               onClick={() => setCategory(item)}
@@ -538,7 +537,7 @@ export default function ExpertConnectPage() {
           EXPERT STATS
           ===================================================== */}
 
-      <section
+      <section className="expert-stats feature-reveal feature-reveal-5"
         style={{
           display: "grid",
           gridTemplateColumns:
@@ -573,7 +572,7 @@ export default function ExpertConnectPage() {
           EXPERT DIRECTORY
           ===================================================== */}
 
-      <section>
+      <section className="expert-directory feature-reveal feature-reveal-6">
         <div
           style={{
             display: "flex",
@@ -1009,7 +1008,7 @@ function ExpertCard({
 }) {
   return (
     <div
-      className="glass-card"
+      className="glass-card expert-card"
       style={{
         padding: "18px",
       }}
@@ -1233,7 +1232,7 @@ function StatCard({
 }) {
   return (
     <div
-      className="glass-card"
+      className="glass-card expert-stat-card"
       style={{
         padding: "15px",
       }}

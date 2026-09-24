@@ -239,7 +239,7 @@ export default function Dashboard() {
 
   return (
     <AppShell>
-      <div
+      <div className="dashboard-page"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -250,7 +250,7 @@ export default function Dashboard() {
             HEADER
             ================================================= */}
 
-        <section
+        <section className="dashboard-header dashboard-reveal dashboard-reveal-1"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -369,7 +369,7 @@ export default function Dashboard() {
             ================================================= */}
 
         <section
-          className="glass-card-strong"
+          className="glass-card-strong dashboard-hero dashboard-reveal dashboard-reveal-2"
           style={{
             position: "relative",
             minHeight: "260px",
@@ -618,7 +618,7 @@ export default function Dashboard() {
             KPI CARDS
             ================================================= */}
 
-        <section
+        <section className="dashboard-kpis dashboard-reveal dashboard-reveal-3"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
@@ -666,7 +666,7 @@ export default function Dashboard() {
             INTELLIGENCE CARDS
             ================================================= */}
 
-        <section
+        <section className="dashboard-intelligence dashboard-reveal dashboard-reveal-4"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
@@ -675,7 +675,7 @@ export default function Dashboard() {
         >
           {/* Disease */}
           <div
-            className="glass-card"
+            className="glass-card dashboard-risk-card"
             style={{
               padding: "26px",
               minHeight: "280px",
@@ -818,7 +818,7 @@ export default function Dashboard() {
 
           {/* Crop health */}
           <div
-            className="glass-card"
+            className="glass-card dashboard-chart-card"
             style={{
               padding: "26px",
               minHeight: "280px",
@@ -886,7 +886,7 @@ export default function Dashboard() {
 
           {/* Yield */}
           <div
-            className="glass-card"
+            className="glass-card dashboard-chart-card"
             style={{
               padding: "26px",
               minHeight: "280px",
@@ -972,7 +972,7 @@ export default function Dashboard() {
             FIELD INTELLIGENCE + ACTIONS
             ================================================= */}
 
-        <section
+        <section className="dashboard-field-section dashboard-reveal dashboard-reveal-5"
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0, 1.4fr) minmax(320px, 0.8fr)",
@@ -981,7 +981,7 @@ export default function Dashboard() {
         >
           {/* FIELD INTELLIGENCE */}
           <div
-            className="glass-card"
+            className="glass-card dashboard-field-card"
             style={{
               padding: "28px",
             }}
@@ -1071,7 +1071,7 @@ export default function Dashboard() {
 
           {/* TODAY ACTIONS */}
           <div
-            className="glass-card"
+            className="glass-card dashboard-actions-card"
             style={{
               padding: "28px",
             }}
@@ -1525,7 +1525,7 @@ export default function Dashboard() {
             QUICK ACTIONS
             ================================================= */}
 
-        <section>
+        <section className="dashboard-quick-actions dashboard-reveal dashboard-reveal-7">
           <div style={{ marginBottom: "16px" }}>
             <h2
               style={{
@@ -1561,7 +1561,7 @@ export default function Dashboard() {
                 key={action.title}
                 type="button"
                 onClick={() => router.push(action.route)}
-                className="glass-card"
+                className="glass-card dashboard-action-card"
                 style={{
                   padding: "20px",
                   display: "flex",
@@ -1623,7 +1623,7 @@ export default function Dashboard() {
             SAATHI CTA
             ================================================= */}
 
-        <section
+        <section className="dashboard-saathi-cta dashboard-reveal dashboard-reveal-8"
           style={{
             padding: "24px 30px",
             borderRadius: "16px",
@@ -1962,9 +1962,9 @@ function MetricCard({
   trend: string;
 }) {
   return (
-    <div className="glass-card" style={{ padding: "22px" }}>
+    <div className="glass-card dashboard-metric-card" style={{ padding: "22px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <div
+        <div className="dashboard-metric-icon"
           style={{
             width: "44px",
             height: "44px",
@@ -2005,8 +2005,8 @@ function MetricCard({
 
 function CardHeading({ icon, title, subtitle, color }: { icon: React.ReactNode; title: string; subtitle: string; color: string }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-      <div
+    <div className="dashboard-card-heading" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <div className="dashboard-heading-icon"
         style={{
           width: "42px",
           height: "42px",
@@ -2043,7 +2043,7 @@ function FieldIndicator({
   color: string;
 }) {
   return (
-    <div
+    <div className="dashboard-field-indicator"
       style={{
         padding: "16px",
         borderRadius: "12px",
@@ -2082,7 +2082,7 @@ function FieldIndicator({
 
 function ActionItem({ number, title, text, color }: { number: string; title: string; text: string; color: string }) {
   return (
-    <div
+    <div className="dashboard-action-item"
       style={{
         display: "flex",
         gap: "14px",

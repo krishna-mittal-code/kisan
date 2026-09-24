@@ -95,7 +95,7 @@ export default function MyFarmPage() {
           PAGE HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -246,7 +246,7 @@ export default function MyFarmPage() {
           FARM HERO
           ===================================================== */}
 
-      <section
+      <section className="farm-hero feature-reveal feature-reveal-2"
         style={{
           ...cardStyle,
 
@@ -456,7 +456,7 @@ export default function MyFarmPage() {
           FARM DETAILS
           ===================================================== */}
 
-      <section
+      <section className="farm-details feature-reveal feature-reveal-3"
         style={{
           display: "grid",
 
@@ -757,7 +757,7 @@ export default function MyFarmPage() {
           FARM HEALTH OVERVIEW
           ===================================================== */}
 
-      <section
+      <section className="farm-health feature-reveal feature-reveal-4"
         style={{
           ...cardStyle,
 
@@ -856,7 +856,7 @@ export default function MyFarmPage() {
           QUICK ACTIONS
           ===================================================== */}
 
-      <section
+      <section className="farm-quick-actions feature-reveal feature-reveal-5"
         style={{
           display: "grid",
 
@@ -916,7 +916,7 @@ function FarmDetail({
 
   return (
 
-    <div
+    <div className="farm-detail-card"
       style={{
         display: "flex",
         alignItems: "center",
@@ -1003,7 +1003,7 @@ function HealthCard({
 
   return (
 
-    <div
+    <div className="farm-health-card"
       style={{
         padding: "15px",
 
@@ -1017,7 +1017,7 @@ function HealthCard({
       }}
     >
 
-      <div
+      <div className="farm-quick-action-card"
         style={{
           display: "flex",
           alignItems: "center",

@@ -240,7 +240,7 @@ export default function DiseaseDetectionPage() {
           PAGE HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -349,7 +349,7 @@ export default function DiseaseDetectionPage() {
           HOW IT WORKS
           ===================================================== */}
 
-      <section
+      <section className="disease-process feature-reveal feature-reveal-2"
         style={{
           display: "grid",
 
@@ -405,7 +405,7 @@ export default function DiseaseDetectionPage() {
           MAIN ANALYSIS AREA
           ===================================================== */}
 
-      <section
+      <section className="disease-analysis-layout feature-reveal feature-reveal-3"
         style={{
           display: "grid",
 
@@ -423,7 +423,7 @@ export default function DiseaseDetectionPage() {
             IMAGE UPLOAD PANEL
             =================================================== */}
 
-        <div
+        <div className="disease-upload-panel"
           style={{
             padding: "22px",
 
@@ -545,7 +545,7 @@ export default function DiseaseDetectionPage() {
 
           {/* DROP ZONE */}
 
-          <div
+          <div className="disease-dropzone"
             {...getRootProps()}
             style={{
               minHeight: "340px",
@@ -846,7 +846,7 @@ export default function DiseaseDetectionPage() {
             AI RESULT PANEL
             =================================================== */}
 
-        <div
+        <div className="disease-result-panel"
           style={{
             padding: "22px",
 
@@ -1283,7 +1283,7 @@ export default function DiseaseDetectionPage() {
           TIPS
           ===================================================== */}
 
-      <section
+      <section className="disease-tips feature-reveal feature-reveal-4"
         style={{
           display: "grid",
 
@@ -1348,7 +1348,7 @@ function ProcessCard({
 
   return (
 
-    <div
+    <div className="disease-process-card"
       style={{
         display: "flex",
         alignItems: "center",
@@ -1460,7 +1460,7 @@ function Tip({
 
   return (
 
-    <div
+    <div className="disease-tip-card"
       style={{
         display: "flex",
         gap: "10px",

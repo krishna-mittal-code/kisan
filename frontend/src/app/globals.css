@@ -9,6 +9,23 @@
 
 
 /* =========================================================
+   VISUAL TOKENS
+   ========================================================= */
+
+:root {
+  --ks-bg: #020617;
+  --ks-surface: rgba(10, 22, 52, 0.72);
+  --ks-surface-strong: rgba(11, 23, 57, 0.9);
+  --ks-line: rgba(148, 163, 184, 0.14);
+  --ks-line-bright: rgba(129, 140, 248, 0.28);
+  --ks-text: #f8fafc;
+  --ks-muted: #94a3b8;
+  --ks-blue: #60a5fa;
+  --ks-violet: #a78bfa;
+  --ks-green: #4ade80;
+}
+
+/* =========================================================
    BASE
    ========================================================= */
 
@@ -22,16 +39,17 @@
 
   html {
     min-height: 100%;
-    background: #020617;
+    background: var(--ks-bg);
     scroll-behavior: smooth;
   }
 
   body {
+    position: relative;
     min-height: 100vh;
     margin: 0;
     overflow-x: hidden;
 
-    color: #f8fafc;
+    color: var(--ks-text);
 
     font-family:
       Inter,
@@ -105,6 +123,38 @@
     background-attachment: fixed;
   }
 
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* A quiet technical grid keeps the atmosphere data-oriented without
+     competing with page content. */
+  body::before {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    content: "";
+    opacity: 0.22;
+    background-image:
+      linear-gradient(rgba(96, 165, 250, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(96, 165, 250, 0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 92%);
+  }
+
+  body::after {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    content: "";
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+
 
   /* =======================================================
      SELECTION
@@ -126,17 +176,12 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #020617;
+    background: rgba(2, 6, 23, 0.86);
   }
 
   ::-webkit-scrollbar-thumb {
-    background:
-      linear-gradient(
-        180deg,
-        #2563eb,
-        #7c3aed,
-        #10b981
-      );
+    background: linear-gradient(180deg, #2563eb, #6366f1 55%, #10b981);
+    border: 2px solid rgba(2, 6, 23, 0.86);
 
     border-radius: 999px;
   }
@@ -178,6 +223,10 @@
   textarea::placeholder {
     color: rgba(148, 163, 184, 0.55);
   }
+
+  ::-webkit-backdrop {
+    background: transparent;
+  }
 }
 
 
@@ -198,20 +247,17 @@
     overflow: hidden;
 
     background:
-      linear-gradient(
-        135deg,
-        rgba(19, 31, 73, 0.88),
-        rgba(8, 18, 48, 0.82)
-      );
+      linear-gradient(135deg, rgba(19, 31, 73, 0.78), rgba(8, 18, 48, 0.72)),
+      linear-gradient(120deg, rgba(255, 255, 255, 0.025), transparent 42%);
 
-    border: 1px solid rgba(99, 102, 241, 0.24);
+    border: 1px solid var(--ks-line-bright);
 
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.045),
       0 10px 40px rgba(0, 0, 0, 0.25);
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(22px) saturate(120%);
+    -webkit-backdrop-filter: blur(22px) saturate(120%);
 
     border-radius: 18px;
 
@@ -287,15 +333,15 @@
         rgba(9, 17, 45, 0.93)
       );
 
-    border: 1px solid rgba(99, 102, 241, 0.30);
+    border: 1px solid rgba(129, 140, 248, 0.32);
 
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.05),
       0 15px 45px rgba(0, 0, 0, 0.30),
       0 0 30px rgba(79, 70, 229, 0.06);
 
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px) saturate(125%);
+    -webkit-backdrop-filter: blur(24px) saturate(125%);
 
     border-radius: 18px;
 
@@ -744,6 +790,606 @@
     color:
       transparent;
   }
+
+
+  /* =======================================================
+     SHARED VISUAL UTILITIES
+     ======================================================= */
+
+  .glass-panel {
+    background: linear-gradient(135deg, rgba(12, 26, 60, 0.68), rgba(4, 12, 31, 0.72));
+    border: 1px solid var(--ks-line);
+    border-radius: 16px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 18px 55px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(18px) saturate(115%);
+    -webkit-backdrop-filter: blur(18px) saturate(115%);
+  }
+
+  .ambient-glow {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .ambient-glow::after {
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    content: "";
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.1), transparent 66%);
+    filter: blur(28px);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 420ms ease-out both;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 3.8s ease-in-out infinite;
+  }
+
+  /* =======================================================
+     APP CHROME
+     ======================================================= */
+
+  .sidebar-shell {
+    isolation: isolate;
+    backdrop-filter: blur(24px) saturate(125%);
+    -webkit-backdrop-filter: blur(24px) saturate(125%);
+  }
+
+  .sidebar-shell::after {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 1px;
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(180deg, rgba(96, 165, 250, 0.45), rgba(74, 222, 128, 0.08) 45%, transparent);
+    opacity: 0.65;
+  }
+
+  .sidebar-brand {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.045), transparent 58%);
+  }
+
+  .sidebar-brand-mark {
+    transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms ease;
+  }
+
+  .sidebar-brand:hover .sidebar-brand-mark {
+    transform: translateY(-2px) rotate(-2deg);
+    box-shadow: 0 10px 28px rgba(79, 70, 229, 0.32), 0 0 36px rgba(37, 99, 235, 0.22), inset 0 1px rgba(255, 255, 255, 0.2);
+  }
+
+  .sidebar-item-icon {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), background 220ms ease, color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .sidebar-menu-item:hover .sidebar-item-icon {
+    transform: translateX(1px) scale(1.04);
+    background: rgba(96, 165, 250, 0.14) !important;
+    color: #93c5fd !important;
+    box-shadow: 0 0 18px rgba(96, 165, 250, 0.1);
+  }
+
+  .sidebar-menu-item.active-item {
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  }
+
+  .sidebar-footer {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.035), transparent 62%);
+  }
+
+  .topbar-shell {
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16), inset 0 -1px rgba(255, 255, 255, 0.025);
+  }
+
+  .topbar-search-input,
+  .topbar-control-button,
+  .topbar-saathi-button,
+  .topbar-notification-button,
+  .topbar-profile-button,
+  .topbar-floating-button {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+  }
+
+  .topbar-search-input:hover,
+  .topbar-control-button:hover,
+  .topbar-notification-button:hover {
+    border-color: rgba(96, 165, 250, 0.38) !important;
+    background: rgba(26, 31, 73, 0.9) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14), 0 0 20px rgba(96, 165, 250, 0.06);
+  }
+
+  .topbar-control-button:hover,
+  .topbar-notification-button:hover,
+  .topbar-saathi-button:hover,
+  .topbar-profile-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .topbar-saathi-button:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 10px 28px rgba(79, 70, 229, 0.2), 0 0 24px rgba(139, 92, 246, 0.12) !important;
+  }
+
+  .topbar-dropdown {
+    animation: scaleIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42), inset 0 1px rgba(255, 255, 255, 0.045) !important;
+  }
+
+  .topbar-dropdown-item {
+    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+  }
+
+  .topbar-dropdown-item:hover {
+    transform: translateX(2px);
+    background: rgba(96, 165, 250, 0.09) !important;
+    color: #f8fafc !important;
+  }
+
+  .topbar-notification-dot {
+    animation: livePulse 2.8s ease-in-out infinite;
+  }
+
+  .topbar-floating-action {
+    animation: fadeUp 500ms 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .topbar-floating-button:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 14px 30px rgba(124, 58, 237, 0.38), 0 0 28px rgba(96, 165, 250, 0.14) !important;
+  }
+
+  /* =======================================================
+     DASHBOARD VISUAL SYSTEM
+     ======================================================= */
+
+  .dashboard-page {
+    position: relative;
+  }
+
+  .dashboard-page::before {
+    position: absolute;
+    top: -80px;
+    right: -12%;
+    width: 520px;
+    height: 420px;
+    pointer-events: none;
+    content: "";
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.1), rgba(124, 58, 237, 0.045) 38%, transparent 72%);
+    filter: blur(24px);
+    opacity: 0.75;
+  }
+
+  .dashboard-header,
+  .dashboard-hero,
+  .dashboard-kpis,
+  .dashboard-intelligence,
+  .dashboard-field-section,
+  .dashboard-ai-panel,
+  .dashboard-quick-actions,
+  .dashboard-saathi-cta {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dashboard-reveal {
+    animation: fadeUp 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .dashboard-reveal-1 { animation-delay: 40ms; }
+  .dashboard-reveal-2 { animation-delay: 80ms; }
+  .dashboard-reveal-3 { animation-delay: 120ms; }
+  .dashboard-reveal-4 { animation-delay: 160ms; }
+  .dashboard-reveal-5 { animation-delay: 200ms; }
+  .dashboard-reveal-6 { animation-delay: 240ms; }
+  .dashboard-reveal-7 { animation-delay: 280ms; }
+  .dashboard-reveal-8 { animation-delay: 320ms; }
+
+  .dashboard-hero {
+    min-height: 280px !important;
+    border-color: rgba(96, 165, 250, 0.28) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 24px 68px rgba(0, 0, 0, 0.28), 0 0 55px rgba(37, 99, 235, 0.08) !important;
+  }
+
+  .dashboard-hero::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(115deg, transparent 22%, rgba(255, 255, 255, 0.035) 48%, transparent 70%);
+    opacity: 0.7;
+  }
+
+  .dashboard-kpis {
+    gap: 16px !important;
+  }
+
+  .dashboard-metric-card {
+    min-height: 154px;
+    border-color: rgba(129, 140, 248, 0.2) !important;
+  }
+
+  .dashboard-metric-card:hover,
+  .dashboard-risk-card:hover,
+  .dashboard-chart-card:hover,
+  .dashboard-field-card:hover,
+  .dashboard-actions-card:hover,
+  .dashboard-action-card:hover {
+    transform: translateY(-2px) !important;
+  }
+
+  .dashboard-metric-icon,
+  .dashboard-heading-icon {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease;
+  }
+
+  .dashboard-metric-card:hover .dashboard-metric-icon,
+  .dashboard-risk-card:hover .dashboard-heading-icon,
+  .dashboard-chart-card:hover .dashboard-heading-icon,
+  .dashboard-field-card:hover .dashboard-heading-icon,
+  .dashboard-actions-card:hover .dashboard-heading-icon {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 0 22px rgba(96, 165, 250, 0.12);
+  }
+
+  .dashboard-intelligence,
+  .dashboard-field-section {
+    gap: 16px !important;
+  }
+
+  .dashboard-risk-card {
+    background: linear-gradient(145deg, rgba(26, 24, 69, 0.84), rgba(8, 17, 43, 0.8)) !important;
+  }
+
+  .dashboard-chart-card {
+    background: linear-gradient(145deg, rgba(13, 31, 59, 0.82), rgba(8, 18, 48, 0.78)) !important;
+  }
+
+  .dashboard-ai-panel {
+    border-color: rgba(167, 139, 250, 0.35) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 24px 70px rgba(0, 0, 0, 0.28), 0 0 55px rgba(124, 58, 237, 0.1) !important;
+  }
+
+  .dashboard-ai-panel::after {
+    position: absolute;
+    top: -80px;
+    right: 8%;
+    width: 280px;
+    height: 200px;
+    pointer-events: none;
+    content: "";
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.12), transparent 70%);
+    filter: blur(22px);
+  }
+
+  .dashboard-field-indicator,
+  .dashboard-action-item {
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .dashboard-field-indicator:hover,
+  .dashboard-action-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(96, 165, 250, 0.28) !important;
+    background: rgba(20, 35, 72, 0.78) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  }
+
+  .dashboard-action-card {
+    min-height: 92px;
+  }
+
+  .dashboard-action-card:hover {
+    border-color: rgba(96, 165, 250, 0.34) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22), 0 0 26px rgba(96, 165, 250, 0.08) !important;
+  }
+
+  .dashboard-saathi-cta {
+    border-color: rgba(167, 139, 250, 0.32) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055), 0 18px 48px rgba(0, 0, 0, 0.18);
+  }
+
+  /* =======================================================
+     FEATURE PAGE VISUAL SYSTEM
+     ======================================================= */
+
+  .feature-header,
+  .disease-process,
+  .disease-analysis-layout,
+  .disease-tips,
+  .advisory-selector,
+  .advisory-hero,
+  .advisory-categories,
+  .advisory-content,
+  .advisory-actions,
+  .weather-hero,
+  .weather-metrics,
+  .weather-forecast,
+  .weather-detail-grid,
+  .weather-alert {
+    position: relative;
+    z-index: 1;
+  }
+
+  .feature-reveal {
+    animation: fadeUp 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .feature-reveal-1 { animation-delay: 40ms; }
+  .feature-reveal-2 { animation-delay: 90ms; }
+  .feature-reveal-3 { animation-delay: 140ms; }
+  .feature-reveal-4 { animation-delay: 190ms; }
+  .feature-reveal-5 { animation-delay: 240ms; }
+  .feature-reveal-6 { animation-delay: 290ms; }
+
+  .disease-upload-panel,
+  .disease-result-panel,
+  .advisory-selector,
+  .advisory-main-card,
+  .advisory-priority-card,
+  .advisory-actions,
+  .weather-forecast,
+  .weather-detail-card,
+  .weather-impact-card {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 48px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(18px) saturate(118%);
+    -webkit-backdrop-filter: blur(18px) saturate(118%);
+  }
+
+  .disease-upload-panel,
+  .disease-result-panel {
+    border-color: rgba(129, 140, 248, 0.3) !important;
+    background: linear-gradient(145deg, rgba(18, 29, 67, 0.78), rgba(6, 14, 37, 0.86)) !important;
+  }
+
+  .disease-dropzone {
+    position: relative;
+    border-color: rgba(129, 140, 248, 0.36) !important;
+    background: linear-gradient(145deg, rgba(7, 16, 42, 0.54), rgba(18, 20, 62, 0.45)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 0 32px rgba(96, 165, 250, 0.035);
+  }
+
+  .disease-dropzone:hover {
+    border-color: rgba(167, 139, 250, 0.64) !important;
+    background: linear-gradient(145deg, rgba(24, 24, 74, 0.62), rgba(10, 23, 54, 0.55)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 34px rgba(124, 58, 237, 0.1);
+  }
+
+  .disease-process-card,
+  .disease-tip-card,
+  .advisory-condition-card,
+  .advisory-action-card,
+  .weather-metric-card,
+  .weather-mini-metric {
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .disease-process-card:hover,
+  .disease-tip-card:hover,
+  .advisory-condition-card:hover,
+  .advisory-action-card:hover,
+  .weather-metric-card:hover,
+  .weather-mini-metric:hover {
+    transform: translateY(-2px);
+    border-color: rgba(96, 165, 250, 0.3) !important;
+    background: rgba(20, 35, 72, 0.76) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  }
+
+  .advisory-hero {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 22px 60px rgba(0, 0, 0, 0.24), 0 0 46px rgba(34, 197, 94, 0.07);
+  }
+
+  .advisory-category-button {
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .advisory-category-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(129, 140, 248, 0.34) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  }
+
+  .weather-hero {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 24px 64px rgba(30, 64, 175, 0.18), 0 0 48px rgba(96, 165, 250, 0.08);
+  }
+
+  .weather-hero::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 48%, transparent 74%);
+  }
+
+  .weather-forecast-card {
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .weather-forecast-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(96, 165, 250, 0.4) !important;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2), 0 0 24px rgba(96, 165, 250, 0.08);
+  }
+
+  .weather-impact-row {
+    transition: transform 180ms ease, background 180ms ease;
+  }
+
+  .weather-impact-row:hover {
+    transform: translateX(2px);
+    background: rgba(96, 165, 250, 0.045);
+  }
+
+  /* =======================================================
+     REMAINING FEATURE PAGE VISUAL SYSTEM
+     ======================================================= */
+
+  .market-controls,
+  .market-hero,
+  .market-metrics,
+  .market-analytics,
+  .market-status,
+  .knowledge-hero,
+  .knowledge-search,
+  .knowledge-categories,
+  .knowledge-quick-learn,
+  .knowledge-articles,
+  .expert-hero,
+  .expert-search,
+  .expert-categories,
+  .expert-stats,
+  .expert-directory,
+  .alerts-summary,
+  .alerts-toolbar,
+  .alerts-list,
+  .alerts-info,
+  .farm-hero,
+  .farm-details,
+  .farm-health,
+  .farm-quick-actions,
+  .settings-section,
+  .settings-reset {
+    position: relative;
+    z-index: 1;
+  }
+
+  .market-controls,
+  .market-analytics,
+  .knowledge-quick-learn,
+  .expert-stats,
+  .alerts-summary,
+  .farm-details,
+  .farm-health,
+  .farm-quick-actions {
+    gap: 14px !important;
+  }
+
+  .market-control-card,
+  .market-chart-card,
+  .market-comparison-card,
+  .knowledge-search-card,
+  .knowledge-article-card,
+  .knowledge-quick-card,
+  .expert-search-card,
+  .expert-card,
+  .expert-stat-card,
+  .alert-card,
+  .alert-summary-card,
+  .alert-empty-card,
+  .farm-detail-card,
+  .farm-health-card,
+  .farm-quick-action-card,
+  .settings-section {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 16px 44px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(18px) saturate(116%);
+    -webkit-backdrop-filter: blur(18px) saturate(116%);
+  }
+
+  .market-hero,
+  .knowledge-hero,
+  .expert-hero,
+  .farm-hero {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 22px 62px rgba(0, 0, 0, 0.22), 0 0 48px rgba(96, 165, 250, 0.055);
+  }
+
+  .market-metric-card,
+  .market-control-card,
+  .knowledge-article-card,
+  .knowledge-quick-card,
+  .expert-card,
+  .expert-stat-card,
+  .alert-card,
+  .alert-summary-card,
+  .farm-detail-card,
+  .farm-health-card,
+  .farm-quick-action-card {
+    transition: transform 210ms ease, border-color 210ms ease, background 210ms ease, box-shadow 210ms ease;
+  }
+
+  .market-metric-card:hover,
+  .market-control-card:hover,
+  .knowledge-article-card:hover,
+  .knowledge-quick-card:hover,
+  .expert-card:hover,
+  .expert-stat-card:hover,
+  .alert-card:hover,
+  .alert-summary-card:hover,
+  .farm-detail-card:hover,
+  .farm-health-card:hover,
+  .farm-quick-action-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(96, 165, 250, 0.3) !important;
+    background: rgba(20, 35, 72, 0.76) !important;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2), 0 0 24px rgba(96, 165, 250, 0.055);
+  }
+
+  .market-status,
+  .alerts-info {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 12px 32px rgba(0, 0, 0, 0.14);
+  }
+
+  .knowledge-category-button,
+  .expert-category-button {
+    transition: transform 190ms ease, border-color 190ms ease, background 190ms ease, box-shadow 190ms ease;
+  }
+
+  .knowledge-category-button:hover,
+  .expert-category-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(129, 140, 248, 0.35) !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .alert-card {
+    transition: transform 190ms ease, border-color 190ms ease, background 190ms ease, box-shadow 190ms ease;
+  }
+
+  .alert-card:hover {
+    transform: translateX(2px);
+  }
+
+  .settings-section {
+    border-color: rgba(129, 140, 248, 0.2) !important;
+  }
+
+  .settings-field input,
+  .settings-field select,
+  .settings-section input,
+  .settings-section select,
+  .settings-section textarea {
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  }
+
+  .settings-field input:hover,
+  .settings-field input:focus,
+  .settings-section select:hover,
+  .settings-section select:focus,
+  .settings-section textarea:hover,
+  .settings-section textarea:focus {
+    border-color: rgba(96, 165, 250, 0.4) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08), 0 0 22px rgba(37, 99, 235, 0.06);
+  }
+
+  .settings-toggle {
+    transition: background 180ms ease, padding-left 180ms ease, padding-right 180ms ease;
+  }
+
+  .settings-toggle:hover {
+    background: rgba(96, 165, 250, 0.035);
+  }
 }
 
 
@@ -839,5 +1485,116 @@
 
     transform:
       translateY(-1px);
+  }
+
+  .disease-process,
+  .disease-tips,
+  .advisory-categories,
+  .weather-metrics,
+  .weather-forecast > div:last-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .disease-analysis-layout,
+  .advisory-content,
+  .weather-detail-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .advisory-actions > div:last-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .weather-hero > div:nth-child(2) > div:last-child {
+    opacity: 0.72;
+    transform: scale(0.86);
+    transform-origin: right center;
+  }
+
+  .market-controls,
+  .market-analytics,
+  .knowledge-quick-learn,
+  .expert-stats,
+  .alerts-summary,
+  .farm-details,
+  .farm-health,
+  .farm-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .knowledge-articles > div:last-child,
+  .expert-directory > div:last-child {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .feature-header {
+    align-items: flex-start !important;
+  }
+
+  .disease-process,
+  .disease-tips,
+  .advisory-categories,
+  .weather-metrics,
+  .weather-forecast > div:last-child,
+  .advisory-actions > div:last-child {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .weather-hero > div:nth-child(2) > div:last-child {
+    display: none;
+  }
+
+  .market-controls,
+  .market-analytics,
+  .knowledge-quick-learn,
+  .expert-stats,
+  .alerts-summary,
+  .farm-details,
+  .farm-health,
+  .farm-quick-actions {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .settings-section > div:first-child {
+    align-items: flex-start;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 22px rgba(96, 165, 250, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(129, 140, 248, 0.2);
   }
 }

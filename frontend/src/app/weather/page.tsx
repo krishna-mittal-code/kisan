@@ -109,7 +109,7 @@ export default function WeatherPage() {
           HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -216,7 +216,7 @@ export default function WeatherPage() {
           MAIN WEATHER HERO
           ===================================================== */}
 
-      <section
+      <section className="weather-hero feature-reveal feature-reveal-2"
         style={{
           position: "relative",
           overflow: "hidden",
@@ -578,7 +578,7 @@ export default function WeatherPage() {
           CURRENT CONDITIONS
           ===================================================== */}
 
-      <section
+      <section className="weather-metrics feature-reveal feature-reveal-3"
         style={{
           display: "grid",
 
@@ -633,7 +633,7 @@ export default function WeatherPage() {
           FORECAST
           ===================================================== */}
 
-      <section
+      <section className="weather-forecast feature-reveal feature-reveal-4"
         style={{
           padding: "21px",
 
@@ -715,7 +715,7 @@ export default function WeatherPage() {
 
               return (
 
-                <button
+                <button className="weather-forecast-card"
                   key={item.day}
                   type="button"
                   onClick={() =>
@@ -873,7 +873,7 @@ export default function WeatherPage() {
           SELECTED DAY + FARM IMPACT
           ===================================================== */}
 
-      <section
+      <section className="weather-detail-grid feature-reveal feature-reveal-5"
         style={{
           display: "grid",
 
@@ -888,7 +888,7 @@ export default function WeatherPage() {
 
         {/* SELECTED WEATHER */}
 
-        <div
+        <div className="weather-detail-card"
           style={{
             padding: "21px",
 
@@ -991,7 +991,7 @@ export default function WeatherPage() {
 
         {/* FARM IMPACT */}
 
-        <div
+        <div className="weather-impact-card"
           style={{
             padding: "21px",
 
@@ -1109,7 +1109,7 @@ export default function WeatherPage() {
           WEATHER ALERT
           ===================================================== */}
 
-      <section
+      <section className="weather-alert feature-reveal feature-reveal-6"
         style={{
           display: "flex",
           alignItems: "center",
@@ -1203,7 +1203,7 @@ function WeatherMetric({
 
   return (
 
-    <div
+    <div className="weather-metric-card"
       style={{
         padding: "15px",
 
@@ -1276,7 +1276,7 @@ function MiniMetric({
 
   return (
 
-    <div
+    <div className="weather-mini-metric"
       style={{
         padding: "12px",
 
@@ -1349,7 +1349,7 @@ function ImpactRow({
 
   return (
 
-    <div
+    <div className="weather-impact-row"
       style={{
         display: "flex",
         alignItems: "center",

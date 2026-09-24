@@ -191,7 +191,7 @@ export default function MarketPricesPage() {
           HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -278,7 +278,7 @@ export default function MarketPricesPage() {
           CONTROL PANEL
           ===================================================== */}
 
-      <section
+      <section className="market-controls feature-reveal feature-reveal-2"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -286,7 +286,7 @@ export default function MarketPricesPage() {
           marginBottom: "18px",
         }}
       >
-        <div className="glass-card" style={{ padding: "18px" }}>
+        <div className="glass-card market-control-card" style={{ padding: "18px" }}>
           <div
             style={{
               display: "flex",
@@ -341,7 +341,7 @@ export default function MarketPricesPage() {
           </select>
         </div>
 
-        <div className="glass-card" style={{ padding: "18px" }}>
+        <div className="glass-card market-control-card" style={{ padding: "18px" }}>
           <div
             style={{
               display: "flex",
@@ -405,7 +405,7 @@ export default function MarketPricesPage() {
           MAIN PRICE HERO
           ===================================================== */}
 
-      <section
+      <section className="market-hero feature-reveal feature-reveal-3"
         style={{
           position: "relative",
           overflow: "hidden",
@@ -628,7 +628,7 @@ export default function MarketPricesPage() {
           PRICE METRICS
           ===================================================== */}
 
-      <section
+      <section className="market-metrics feature-reveal feature-reveal-4"
         style={{
           display: "grid",
           gridTemplateColumns:
@@ -670,7 +670,7 @@ export default function MarketPricesPage() {
           CHART + MARKET COMPARISON
           ===================================================== */}
 
-      <section
+      <section className="market-analytics feature-reveal feature-reveal-5"
         style={{
           display: "grid",
           gridTemplateColumns: "1.65fr 1fr",
@@ -680,7 +680,7 @@ export default function MarketPricesPage() {
       >
         {/* CHART */}
 
-        <div className="glass-card" style={{ padding: "21px" }}>
+        <div className="glass-card market-chart-card" style={{ padding: "21px" }}>
           <div
             style={{
               display: "flex",
@@ -807,7 +807,7 @@ export default function MarketPricesPage() {
 
         {/* MARKET COMPARISON */}
 
-        <div className="glass-card" style={{ padding: "21px" }}>
+        <div className="glass-card market-comparison-card" style={{ padding: "21px" }}>
           <div
             style={{
               display: "flex",
@@ -947,7 +947,7 @@ export default function MarketPricesPage() {
           MARKET INTELLIGENCE
           ===================================================== */}
 
-      <section
+      <section className="market-status feature-reveal feature-reveal-6"
         style={{
           display: "flex",
           alignItems: "center",
@@ -1022,7 +1022,7 @@ function MarketMetric({
 }) {
   return (
     <div
-      className="glass-card"
+      className="glass-card market-metric-card"
       style={{
         padding: "15px",
       }}

@@ -87,6 +87,7 @@ export default function Sidebar() {
 
   return (
     <aside
+      className="sidebar-shell"
       style={{
         position: "fixed",
         left: 0,
@@ -99,12 +100,12 @@ export default function Sidebar() {
         flexDirection: "column",
 
         background:
-          "linear-gradient(180deg, rgba(7,15,42,0.98) 0%, rgba(5,12,32,0.99) 50%, rgba(8,8,30,0.99) 100%)",
+          "linear-gradient(180deg, rgba(7,15,42,0.82) 0%, rgba(5,12,32,0.90) 50%, rgba(8,8,30,0.94) 100%)",
 
         borderRight: "1px solid rgba(99,102,241,0.22)",
 
         boxShadow:
-          "10px 0 40px rgba(0,0,0,0.25), inset -1px 0 25px rgba(79,70,229,0.04)",
+          "16px 0 48px rgba(0,0,0,0.28), inset -1px 0 25px rgba(79,70,229,0.06), inset 1px 0 rgba(255,255,255,0.025)",
 
         overflow: "hidden",
       }}
@@ -123,11 +124,11 @@ export default function Sidebar() {
         
         /* Smooth Hover Animation for Menu Items */
         .sidebar-menu-item {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          transition: all 0.24s cubic-bezier(0.22, 1, 0.36, 1) !important;
         }
         .sidebar-menu-item:hover {
-          transform: translateX(6px);
-          background: rgba(99, 102, 241, 0.15) !important;
+          transform: translateX(2px);
+          background: rgba(99, 102, 241, 0.12) !important;
         }
         .sidebar-menu-item.active-item:hover {
           background: linear-gradient(135deg, rgba(79,70,229,0.40), rgba(124,58,237,0.30)) !important;
@@ -139,6 +140,7 @@ export default function Sidebar() {
       ===================================================== */}
 
       <div
+        className="sidebar-brand"
         style={{
           padding: "24px 20px 20px",
           borderBottom: "1px solid rgba(99,102,241,0.16)",
@@ -169,6 +171,7 @@ export default function Sidebar() {
           }}
         >
           <div
+            className="sidebar-brand-mark"
             style={{
               width: "42px",
               height: "42px",
@@ -184,7 +187,7 @@ export default function Sidebar() {
               border: "1px solid rgba(165,180,252,0.35)",
 
               boxShadow:
-                "0 8px 25px rgba(79,70,229,0.28), 0 0 25px rgba(37,99,235,0.12)",
+                "0 8px 25px rgba(79,70,229,0.28), 0 0 30px rgba(37,99,235,0.18), inset 0 1px rgba(255,255,255,0.18)",
             }}
           >
             <Sprout
@@ -197,7 +200,7 @@ export default function Sidebar() {
           <div>
             <div
               style={{
-                fontSize: "20px",
+                fontSize: "19px",
                 fontWeight: 800,
                 letterSpacing: "-0.5px",
                 color: "#ffffff",
@@ -211,7 +214,7 @@ export default function Sidebar() {
               style={{
                 marginTop: "5px",
                 fontSize: "11px",
-                color: "#8b9cff",
+                color: "#86efac",
                 fontWeight: 600,
                 letterSpacing: "0.4px",
               }}
@@ -239,7 +242,7 @@ export default function Sidebar() {
       ===================================================== */}
 
       <nav
-        className="sidebar-nav-container"
+        className="sidebar-nav-container sidebar-navigation"
         style={{
           flex: 1,
           padding: "18px 12px",
@@ -313,6 +316,7 @@ export default function Sidebar() {
                 {/* active indicator */}
                 {active && (
                   <div
+                    className="sidebar-item-icon"
                     style={{
                       position: "absolute",
                       left: "-1px",
@@ -414,6 +418,7 @@ export default function Sidebar() {
       ===================================================== */}
 
       <div
+        className="sidebar-footer"
         style={{
           padding: "12px 20px 18px",
 

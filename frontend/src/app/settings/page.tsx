@@ -64,7 +64,7 @@ export default function SettingsPage() {
           HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -461,7 +461,7 @@ export default function SettingsPage() {
           RESET
           ===================================================== */}
 
-      <section
+      <section className="settings-reset feature-reveal feature-reveal-6"
         style={{
           display: "flex",
           justifyContent: "flex-end",
@@ -511,8 +511,7 @@ function SettingsSection({
   children: React.ReactNode;
 }) {
   return (
-    <section
-      className="glass-card"
+    <section className="settings-section glass-card"
       style={{
         padding: "18px",
         marginBottom: "14px",
@@ -586,7 +585,7 @@ function Field({
   onChange: (value: string) => void;
 }) {
   return (
-    <label
+    <label className="settings-field"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -644,7 +643,7 @@ function SettingToggle({
   onChange: (value: boolean) => void;
 }) {
   return (
-    <div
+    <div className="settings-toggle"
       style={{
         display: "flex",
         alignItems: "center",

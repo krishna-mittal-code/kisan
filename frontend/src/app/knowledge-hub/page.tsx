@@ -164,7 +164,7 @@ export default function KnowledgeHubPage() {
           HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           marginBottom: "22px",
         }}
@@ -258,7 +258,7 @@ export default function KnowledgeHubPage() {
           KNOWLEDGE HERO
           ===================================================== */}
 
-      <section
+      <section className="knowledge-hero feature-reveal feature-reveal-2"
         style={{
           position: "relative",
           overflow: "hidden",
@@ -426,8 +426,7 @@ export default function KnowledgeHubPage() {
           SEARCH
           ===================================================== */}
 
-      <section
-        className="glass-card"
+      <section className="knowledge-search feature-reveal feature-reveal-3 glass-card knowledge-search-card"
         style={{
           padding: "14px",
           marginBottom: "15px",
@@ -477,7 +476,7 @@ export default function KnowledgeHubPage() {
           CATEGORY FILTER
           ===================================================== */}
 
-      <section
+      <section className="knowledge-categories feature-reveal feature-reveal-4"
         style={{
           display: "flex",
           gap: "8px",
@@ -489,7 +488,7 @@ export default function KnowledgeHubPage() {
           const active = category === item;
 
           return (
-            <button
+            <button className="knowledge-category-button"
               key={item}
               type="button"
               onClick={() => setCategory(item)}
@@ -520,7 +519,7 @@ export default function KnowledgeHubPage() {
           QUICK LEARN
           ===================================================== */}
 
-      <section
+      <section className="knowledge-quick-learn feature-reveal feature-reveal-5"
         style={{
           display: "grid",
           gridTemplateColumns:
@@ -555,7 +554,7 @@ export default function KnowledgeHubPage() {
           ARTICLES
           ===================================================== */}
 
-      <section>
+      <section className="knowledge-articles feature-reveal feature-reveal-6">
         <div
           style={{
             display: "flex",
@@ -854,7 +853,7 @@ function ArticleCard({
 }) {
   return (
     <div
-      className="glass-card"
+      className="glass-card knowledge-article-card"
       style={{
         padding: "18px",
         transition:
@@ -1010,7 +1009,7 @@ function QuickLearn({
 }) {
   return (
     <div
-      className="glass-card"
+      className="glass-card knowledge-quick-card"
       style={{
         padding: "14px",
       }}

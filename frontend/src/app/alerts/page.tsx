@@ -277,7 +277,7 @@ export default function AlertsPage() {
           HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -369,7 +369,7 @@ export default function AlertsPage() {
           ALERT OVERVIEW
           ===================================================== */}
 
-      <section
+      <section className="alerts-summary feature-reveal feature-reveal-2"
         style={{
           display: "grid",
           gridTemplateColumns:
@@ -404,8 +404,7 @@ export default function AlertsPage() {
           ACTION BAR
           ===================================================== */}
 
-      <section
-        className="glass-card"
+      <section className="alerts-toolbar feature-reveal feature-reveal-3 glass-card"
         style={{
           padding: "14px",
           marginBottom: "15px",
@@ -568,7 +567,7 @@ export default function AlertsPage() {
           ALERT LIST
           ===================================================== */}
 
-      <section>
+      <section className="alerts-list feature-reveal feature-reveal-4">
         <div
           style={{
             display: "flex",
@@ -630,7 +629,7 @@ export default function AlertsPage() {
           FARM MONITORING INFO
           ===================================================== */}
 
-      <section
+      <section className="alerts-info feature-reveal feature-reveal-5"
         style={{
           display: "flex",
           alignItems: "center",
@@ -707,7 +706,7 @@ function AlertCard({
 
   return (
     <div
-      className="glass-card"
+      className="glass-card alert-card"
       style={{
         padding: "16px",
         border: alert.unread
@@ -951,7 +950,7 @@ function AlertSummary({
 }) {
   return (
     <div
-      className="glass-card"
+      className="glass-card alert-summary-card"
       style={{
         padding: "15px",
       }}
@@ -1002,7 +1001,7 @@ function EmptyState({
   const { t } = useTranslation();
   return (
     <div
-      className="glass-card"
+      className="glass-card alert-empty-card"
       style={{
         padding: "45px 20px",
         textAlign: "center",

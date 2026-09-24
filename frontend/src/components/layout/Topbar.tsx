@@ -233,6 +233,7 @@ export default function Topbar() {
   return (
     <>
       <header
+        className="topbar-shell"
         style={{
           position: "fixed",
           top: 0,
@@ -244,16 +245,17 @@ export default function Topbar() {
           alignItems: "center",
           gap: "12px",
           padding: "0 28px",
-          background: "rgba(7,10,27,0.88)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(99,102,241,0.12)",
+          background: "rgba(7,10,27,0.72)",
+          backdropFilter: "blur(24px) saturate(125%)",
+          WebkitBackdropFilter: "blur(24px) saturate(125%)",
+          borderBottom: "1px solid rgba(129,140,248,0.16)",
         }}
       >
-        <div ref={searchRef} style={{ position: "relative", flex: 1, maxWidth: "640px" }}>
+        <div ref={searchRef} className="topbar-search" style={{ position: "relative", flex: 1, maxWidth: "640px" }}>
           <form onSubmit={handleSearchSubmit}>
             <Search size={19} style={{ position: "absolute", left: "17px", top: "50%", transform: "translateY(-50%)", color: "#64748b", pointerEvents: "none" }} />
             <input
+              className="topbar-search-input"
               value={search}
               onChange={(event) => {
                 setSearch(event.target.value);
@@ -266,17 +268,17 @@ export default function Topbar() {
               }}
             />
             {search && (
-              <button type="button" onClick={() => { setSearch(""); setSearchOpen(false); }} style={{ position: "absolute", right: "13px", top: "50%", transform: "translateY(-50%)", width: "26px", height: "26px", display: "flex", alignItems: "center", justifyContent: "center", border: "none", borderRadius: "50%", background: "rgba(100,116,139,0.12)", color: "#64748b", cursor: "pointer" }}>
+              <button className="topbar-icon-button topbar-clear-button" type="button" onClick={() => { setSearch(""); setSearchOpen(false); }} style={{ position: "absolute", right: "13px", top: "50%", transform: "translateY(-50%)", width: "26px", height: "26px", display: "flex", alignItems: "center", justifyContent: "center", border: "none", borderRadius: "50%", background: "rgba(100,116,139,0.12)", color: "#64748b", cursor: "pointer" }}>
                 <X size={13} />
               </button>
             )}
           </form>
 
           {searchOpen && search.trim() && (
-            <div style={{ position: "absolute", top: "61px", left: 0, right: 0, padding: "7px", borderRadius: "13px", background: "rgba(10,15,36,0.98)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.45)", backdropFilter: "blur(20px)" }}>
+            <div className="topbar-dropdown" style={{ position: "absolute", top: "61px", left: 0, right: 0, padding: "7px", borderRadius: "13px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.45)", backdropFilter: "blur(20px)" }}>
               {searchResults.length > 0 ? (
                 searchResults.slice(0, 6).map((item) => (
-                  <button key={item.route} type="button" onClick={() => navigate(item.route)} style={{ width: "100%", display: "flex", alignItems: "center", gap: "11px", padding: "10px", border: "none", borderRadius: "9px", background: "transparent", color: "#e2e8f0", textAlign: "left", cursor: "pointer" }}>
+                  <button className="topbar-dropdown-item" key={item.route} type="button" onClick={() => navigate(item.route)} style={{ width: "100%", display: "flex", alignItems: "center", gap: "11px", padding: "10px", border: "none", borderRadius: "9px", background: "transparent", color: "#e2e8f0", textAlign: "left", cursor: "pointer" }}>
                     <div style={{ width: "30px", height: "30px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", background: "rgba(96,165,250,0.08)", color: "#60a5fa" }}>{item.icon}</div>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: "10px", fontWeight: 700 }}>{t(item.titleKey)}</div>
@@ -293,7 +295,7 @@ export default function Topbar() {
         </div>
 
         <div ref={languageRef} style={{ position: "relative" }}>
-          <button type="button" onClick={() => setLanguageOpen((current) => !current)} style={{ height: "54px", minWidth: "150px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", padding: "0 14px", borderRadius: "12px", border: "1px solid rgba(99,102,241,0.20)", background: "rgba(20,18,55,0.80)", color: "#e2e8f0", cursor: "pointer" }}>
+          <button className="topbar-control-button" type="button" onClick={() => setLanguageOpen((current) => !current)} style={{ height: "54px", minWidth: "150px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", padding: "0 14px", borderRadius: "12px", border: "1px solid rgba(99,102,241,0.20)", background: "rgba(20,18,55,0.80)", color: "#e2e8f0", cursor: "pointer" }}>
             <span style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "16px", fontWeight: 700 }}>
               <Globe2 size={16} color="#60a5fa" />
               {currentLangCode === "hi" ? "हिन्दी" : currentLangCode === "gu" ? "ગુજરાતી" : "English"}
@@ -302,27 +304,27 @@ export default function Topbar() {
           </button>
 
           {languageOpen && (
-            <div style={{ position: "absolute", top: "61px", right: 0, width: "170px", padding: "16px", borderRadius: "12px", background: "rgba(10,15,36,0.98)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
+            <div className="topbar-dropdown" style={{ position: "absolute", top: "61px", right: 0, width: "170px", padding: "16px", borderRadius: "12px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
               {[["en", "English"], ["hi", "Hindi"], ["gu", "Gujarati"]].map(([code, label]) => (
-                <button key={code} type="button" onClick={() => changeLanguage(code)} style={{ width: "100%", padding: "9px 10px", border: "none", borderRadius: "8px", background: "transparent", color: "#cbd5e1", textAlign: "left", fontSize: "16px", cursor: "pointer" }}>{label}</button>
+                <button className="topbar-dropdown-item" key={code} type="button" onClick={() => changeLanguage(code)} style={{ width: "100%", padding: "9px 10px", border: "none", borderRadius: "8px", background: "transparent", color: "#cbd5e1", textAlign: "left", fontSize: "16px", cursor: "pointer" }}>{label}</button>
               ))}
             </div>
           )}
         </div>
 
-        <button type="button" onClick={() => setSaathiOpen(true)} style={{ height: "54px", display: "flex", alignItems: "center", gap: "8px", padding: "0 16px", borderRadius: "12px", border: "1px solid rgba(139,92,246,0.40)", background: "linear-gradient(135deg, rgba(79,70,229,0.24), rgba(139,92,246,0.18))", color: "#ddd6fe", fontSize: "15px", fontWeight: 750, cursor: "pointer", boxShadow: "0 0 22px rgba(139,92,246,0.10)" }}>
+        <button className="topbar-saathi-button" type="button" onClick={() => setSaathiOpen(true)} style={{ height: "54px", display: "flex", alignItems: "center", gap: "8px", padding: "0 16px", borderRadius: "12px", border: "1px solid rgba(139,92,246,0.40)", background: "linear-gradient(135deg, rgba(79,70,229,0.24), rgba(139,92,246,0.18))", color: "#ddd6fe", fontSize: "15px", fontWeight: 750, cursor: "pointer", boxShadow: "0 0 22px rgba(139,92,246,0.10)" }}>
           <Mic size={16} />
           <span>Talk to<br />Saathi</span>
         </button>
 
         <div ref={notificationRef} style={{ position: "relative" }}>
-          <button type="button" onClick={() => setNotificationOpen((current) => !current)} style={{ position: "relative", width: "54px", height: "54px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "12px", border: "1px solid rgba(99,102,241,0.18)", background: "rgba(15,21,48,0.82)", color: "#94a3b8", cursor: "pointer" }}>
+          <button className="topbar-control-button topbar-notification-button" type="button" onClick={() => setNotificationOpen((current) => !current)} style={{ position: "relative", width: "54px", height: "54px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "12px", border: "1px solid rgba(99,102,241,0.18)", background: "rgba(15,21,48,0.82)", color: "#94a3b8", cursor: "pointer" }}>
             <Bell size={18} />
-            <span style={{ position: "absolute", top: "11px", right: "11px", width: "7px", height: "7px", borderRadius: "50%", background: "#fb7185", boxShadow: "0 0 8px rgba(251,113,133,0.9)" }} />
+            <span className="topbar-notification-dot" style={{ position: "absolute", top: "11px", right: "11px", width: "7px", height: "7px", borderRadius: "50%", background: "#fb7185", boxShadow: "0 0 8px rgba(251,113,133,0.9)" }} />
           </button>
 
           {notificationOpen && (
-            <div style={{ position: "absolute", top: "61px", right: 0, width: "330px", padding: "10px", borderRadius: "14px", background: "rgba(10,15,36,0.98)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 25px 60px rgba(0,0,0,0.5)" }}>
+            <div className="topbar-dropdown topbar-alert-dropdown" style={{ position: "absolute", top: "61px", right: 0, width: "330px", padding: "10px", borderRadius: "14px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 25px 60px rgba(0,0,0,0.5)" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 5px 10px" }}>
                 <div style={{ color: "#ffffff", fontSize: "15px", fontWeight: 750 }}>{t("topbar.recentAlerts")}</div>
                 <button type="button" onClick={() => navigate("/alerts")} style={{ display: "flex", alignItems: "center", gap: "4px", border: "none", background: "transparent", color: "#60a5fa", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}>
@@ -331,7 +333,7 @@ export default function Topbar() {
               </div>
 
               {recentAlerts.map((alert) => (
-                <button key={alert.id} type="button" onClick={() => navigate("/alerts")} style={{ width: "100%", display: "flex", alignItems: "flex-start", gap: "9px", padding: "10px 7px", border: "none", borderTop: "1px solid rgba(99,102,241,0.07)", background: "transparent", textAlign: "left", cursor: "pointer" }}>
+                <button className="topbar-dropdown-item" key={alert.id} type="button" onClick={() => navigate("/alerts")} style={{ width: "100%", display: "flex", alignItems: "flex-start", gap: "9px", padding: "10px 7px", border: "none", borderTop: "1px solid rgba(99,102,241,0.07)", background: "transparent", textAlign: "left", cursor: "pointer" }}>
                   <div style={{ width: "29px", height: "29px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", background: `${alert.color}12`, color: alert.color, flexShrink: 0 }}>{alert.icon}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ color: "#e2e8f0", fontSize: "12px", fontWeight: 700 }}>{t(alert.titleKey)}</div>
@@ -345,7 +347,7 @@ export default function Topbar() {
         </div>
 
         <div ref={profileRef} style={{ position: "relative" }}>
-          <button type="button" onClick={() => setProfileOpen((current) => !current)} style={{ display: "flex", alignItems: "center", gap: "9px", padding: "0 3px", border: "none", background: "transparent", color: "#ffffff", cursor: "pointer" }}>
+          <button className="topbar-profile-button" type="button" onClick={() => setProfileOpen((current) => !current)} style={{ display: "flex", alignItems: "center", gap: "9px", padding: "0 3px", border: "none", background: "transparent", color: "#ffffff", cursor: "pointer" }}>
             <div style={{ width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "linear-gradient(135deg, #4f46e5, #7c3aed)", border: "1px solid rgba(129,140,248,0.5)", boxShadow: "0 0 20px rgba(99,102,241,0.18)" }}>
               <User size={21} />
             </div>
@@ -356,7 +358,7 @@ export default function Topbar() {
           </button>
 
           {profileOpen && (
-            <div style={{ position: "absolute", top: "61px", right: 0, width: "200px", padding: "7px", borderRadius: "13px", background: "rgba(10,15,36,0.98)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.45)" }}>
+            <div className="topbar-dropdown" style={{ position: "absolute", top: "61px", right: 0, width: "200px", padding: "7px", borderRadius: "13px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.45)" }}>
               <button type="button" onClick={() => navigate("/my-farm")} style={menuButtonStyle}><Sprout size={14} /> {t("sidebar.myFarm")}</button>
               <button type="button" onClick={() => navigate("/settings")} style={menuButtonStyle}><Settings size={14} /> {t("sidebar.settings")}</button>
               <button type="button" onClick={() => navigate("/alerts")} style={menuButtonStyle}><Bell size={14} /> {t("sidebar.alerts")}</button>
@@ -366,7 +368,7 @@ export default function Topbar() {
       </header>
 
       {/* FLOATING ACTION BUTTON (AI Guide) */}
-      <div 
+      <div className="topbar-floating-action"
         style={{ 
           position: "fixed", 
           bottom: "35px", 
@@ -393,7 +395,7 @@ export default function Topbar() {
             {t("sidebar.aiGuide")}
           </div>
         )}
-        <button
+      <button className="topbar-floating-button"
           onClick={() => setSaathiOpen(true)}
           style={{
             width: "60px",

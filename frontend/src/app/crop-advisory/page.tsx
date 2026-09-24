@@ -212,7 +212,7 @@ export default function CropAdvisoryPage() {
           HEADER
           ===================================================== */}
 
-      <section
+      <section className="feature-header feature-reveal feature-reveal-1"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -319,7 +319,7 @@ export default function CropAdvisoryPage() {
           CROP SELECTOR
           ===================================================== */}
 
-      <section
+      <section className="advisory-selector feature-reveal feature-reveal-2"
         style={{
           padding: "20px",
 
@@ -457,7 +457,7 @@ export default function CropAdvisoryPage() {
           HERO ADVISORY
           ===================================================== */}
 
-      <section
+      <section className="advisory-hero feature-reveal feature-reveal-3"
         style={{
           position: "relative",
           overflow: "hidden",
@@ -591,7 +591,7 @@ export default function CropAdvisoryPage() {
           CATEGORY NAVIGATION
           ===================================================== */}
 
-      <section
+      <section className="advisory-categories feature-reveal feature-reveal-4"
         style={{
           display: "grid",
 
@@ -616,7 +616,7 @@ export default function CropAdvisoryPage() {
 
           return (
 
-            <button
+            <button className="advisory-category-button"
               key={key}
               type="button"
               onClick={() =>
@@ -717,7 +717,7 @@ export default function CropAdvisoryPage() {
           ACTIVE ADVISORY
           ===================================================== */}
 
-      <section
+      <section className="advisory-content feature-reveal feature-reveal-5"
         style={{
           display: "grid",
 
@@ -732,7 +732,7 @@ export default function CropAdvisoryPage() {
 
         {/* MAIN ADVICE */}
 
-        <div
+        <div className="advisory-main-card"
           style={{
             padding: "22px",
 
@@ -882,7 +882,7 @@ export default function CropAdvisoryPage() {
 
         {/* FIELD PRIORITIES */}
 
-        <div
+        <div className="advisory-priority-card"
           style={{
             padding: "22px",
 
@@ -996,7 +996,7 @@ export default function CropAdvisoryPage() {
           DAILY ACTIONS
           ===================================================== */}
 
-      <section
+      <section className="advisory-actions feature-reveal feature-reveal-6"
         style={{
           padding: "21px",
 
@@ -1219,7 +1219,7 @@ function Condition({
 
   return (
 
-    <div
+    <div className="advisory-selector-field"
       style={{
         padding: "11px",
 
@@ -1292,7 +1292,7 @@ function ActionCard({
 
   return (
 
-    <div
+    <div className="advisory-condition-card"
       style={{
         padding: "14px",
 
@@ -1306,7 +1306,7 @@ function ActionCard({
       }}
     >
 
-      <div
+      <div className="advisory-action-card"
         style={{
           display: "flex",
           alignItems: "center",
