@@ -1,7 +1,6 @@
 "use client";
 
-import React, { startTransition, useState, useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState, useEffect, useRef } from "react";
 import { Mic, X, Send, Loader2, AlertCircle } from "lucide-react";
 
 /* =========================================================
@@ -12,29 +11,8 @@ interface SaathiAssistantProps {
   isOpen: boolean;
   onClose: () => void;
   currentLanguage: string; 
-  diseaseContext?: unknown;
+  diseaseContext?: any; 
 }
-
-interface SpeechResultEvent {
-  results: ArrayLike<ArrayLike<{ transcript: string }>>;
-}
-
-interface SpeechErrorEvent {
-  error: string;
-}
-
-interface SpeechRecognitionLike {
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  onstart: () => void;
-  onresult: (event: SpeechResultEvent) => void;
-  onerror: (event: SpeechErrorEvent) => void;
-  onend: () => void;
-  start: () => void;
-}
-
-type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
 
 interface ChatMessage {
   sender: "user" | "saathi";
@@ -44,6 +22,18 @@ interface ChatMessage {
 /* =========================================================
    LOCALIZATION DATA
    ========================================================= */
+
+const quickQuestions: Record<string, string[]> = {
+  en: ["Should I irrigate today?", "How is my crop health?", "Will it rain tomorrow?"],
+  hi: ["Kya mujhe aaj sinchai karni chahiye?", "Meri fasal ki sthiti kaisi hai?", "Kya kal barish hogi?"],
+  gu: ["શું મારે આજે સિંચાઈ કરવી જોઈએ?", "મારા પાકની સ્થિતિ કેવી છે?", "શું આવતીકાલે વરસાદ પડશે?"],
+};
+
+const defaultGreetings: Record<string, string> = {
+  en: "Namaste! I'm Saathi. How can I help with your farm today?",
+  hi: "Namaste! Main Saathi hoon. Main aaj aapke khet ke liye kaise madad kar sakta hoon?",
+  gu: "નમસ્તે! હું સાથી છું. આજે હું તમારા ખેતર માટે કેવી રીતે મદદ કરી શકું?",
+};
 
 /* =========================================================
    COMPONENT
@@ -55,7 +45,6 @@ export default function SaathiAssistant({
   currentLanguage,
   diseaseContext,
 }: SaathiAssistantProps) {
-  const { t } = useTranslation();
   const [question, setQuestion] = useState("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [isRecording, setIsRecording] = useState(false);
@@ -66,16 +55,14 @@ export default function SaathiAssistant({
   
   useEffect(() => {
     if (chatMessages.length === 0) {
-      startTransition(() => {
-        setChatMessages([
-          {
-            sender: "saathi",
-            text: t("saathi.greeting", "Namaste! I am Saathi."),
-          },
-        ]);
-      });
+      setChatMessages([
+        {
+          sender: "saathi",
+          text: defaultGreetings[currentLanguage] || defaultGreetings["en"],
+        },
+      ]);
     }
-  }, [chatMessages.length, currentLanguage, t]);
+  }, [currentLanguage]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -92,15 +79,11 @@ export default function SaathiAssistant({
   const startVoiceRecording = () => {
     setUiError(null);
     
-    const browserWindow = window as Window & {
-      SpeechRecognition?: SpeechRecognitionConstructor;
-      webkitSpeechRecognition?: SpeechRecognitionConstructor;
-    };
     const SpeechRecognition =
-      browserWindow.SpeechRecognition || browserWindow.webkitSpeechRecognition;
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-      setUiError(t("saathi.browserVoiceUnsupported"));
+      setUiError("Your browser does not support voice input. Please use text.");
       return;
     }
 
@@ -121,15 +104,15 @@ export default function SaathiAssistant({
       setIsRecording(true);
     };
 
-    recognition.onresult = (event: SpeechResultEvent) => {
+    recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       setQuestion(transcript);
       setIsRecording(false);
     };
 
-    recognition.onerror = (event: SpeechErrorEvent) => {
+    recognition.onerror = (event: any) => {
       setIsRecording(false);
-      setUiError(t("saathi.microphoneError", { error: event.error }));
+      setUiError(`Microphone error: ${event.error}. Please check your permissions.`);
     };
 
     recognition.onend = () => {
@@ -155,35 +138,49 @@ export default function SaathiAssistant({
         diseaseData: diseaseContext || null, 
       };
 
-      
-      const response = await fetch("http://127.0.0.1:8000/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      let response;
+
+      try {
+        response = await fetch("https://sig-infinite-recruitment-publishing.trycloudflare.com/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Bypass-Tunnel-Reminder": "true"
+          },
+          body: JSON.stringify(payload),
+        });
+        if (!response.ok) throw new Error("Primary URL failed");
+      } catch (primaryError) {
+        console.warn("Primary URL failed, falling back to local...", primaryError);
+        response = await fetch("http://127.0.0.1:8000/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+      }
 
       if (!response.ok) {
         throw new Error("Failed to fetch response from AI server.");
       }
 
-      const data = (await response.json()) as { reply?: string };
+      const data = await response.json();
       
       setChatMessages((current) => [
         ...current,
         {
           sender: "saathi",
-          text: data.reply || t("saathi.unavailable"),
+          text: data.reply || "I am currently unable to answer. Please try again later.",
         },
       ]);
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error("AI Assistant Error:", error);
       setChatMessages((current) => [
         ...current,
         {
           sender: "saathi",
-          text: t("saathi.networkError"),
+          text: "I am experiencing network issues right now. Please check your connection and try again.",
         },
       ]);
     } finally {
@@ -217,11 +214,7 @@ export default function SaathiAssistant({
      RENDER
      ======================================================= */
 
-  const activeQuestions = [
-    t("saathi.quickQuestions.irrigate"),
-    t("saathi.quickQuestions.cropHealth"),
-    t("saathi.quickQuestions.rain"),
-  ];
+  const activeQuestions = quickQuestions[currentLanguage] || quickQuestions["en"];
 
   return (
     <div
@@ -393,7 +386,7 @@ export default function SaathiAssistant({
                 }}
               >
                 <Loader2 size={12} style={{ animation: "spin 1s linear infinite" }} />
-                {t("saathi.thinking")}
+                Thinking...
               </div>
             </div>
           )}
@@ -401,7 +394,7 @@ export default function SaathiAssistant({
           {!isLoading && (
             <div style={{ marginTop: "16px" }}>
               <div style={{ color: "#64748b", fontSize: "8px", marginBottom: "7px", textTransform: "uppercase" }}>
-                {t("saathi.suggestedQuestions")}
+                Quick Questions
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                 {activeQuestions.map((item) => (
@@ -460,7 +453,7 @@ export default function SaathiAssistant({
             <input
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
-              placeholder={isRecording ? t("saathi.listening") : t("saathi.placeholder")}
+              placeholder={isRecording ? "Listening..." : "Ask Saathi anything..."}
               disabled={isRecording}
               style={{
                 flex: 1,
