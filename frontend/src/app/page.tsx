@@ -1579,6 +1579,13 @@ export default function Dashboard() {
       transition:
         "transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease",
       animationDelay: `${index * 70}ms`,
+      // CSS Fix added below to prevent white background matching issues
+      WebkitAppearance: "none",
+      appearance: "none",
+      outline: "none",
+      backgroundColor: "transparent",
+      color: "inherit",
+      fontFamily: "inherit"
     }}
     onMouseEnter={(e) => {
       e.currentTarget.style.transform = "translateY(-4px)";
