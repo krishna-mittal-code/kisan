@@ -1556,67 +1556,147 @@ export default function Dashboard() {
               gap: "14px",
             }}
           >
-            {quickActions.map((action) => (
-              <button
-                key={action.title}
-                type="button"
-                onClick={() => router.push(action.route)}
-                className="glass-card dashboard-action-card"
-                style={{
-                  padding: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "16px",
-                  textAlign: "left",
-                  border: "1px solid rgba(99,102,241,0.15)",
-                  cursor: "pointer",
-                  transition: "transform 0.2s ease, border-color 0.2s ease",
-                }}
-              >
-                <div
-                  style={{
-                    width: "48px",
-                    height: "48px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "12px",
-                    background: `${action.color}15`,
-                    border: `1px solid ${action.color}25`,
-                    color: action.color,
-                    flexShrink: 0,
-                  }}
-                >
-                  {action.icon}
-                </div>
+            {quickActions.map((action, index) => (
+  <button
+    key={action.title}
+    type="button"
+    onClick={() => router.push(action.route)}
+    className="glass-card dashboard-action-card"
+    style={{
+      position: "relative",
+      overflow: "hidden",
+      padding: "20px",
+      display: "flex",
+      alignItems: "center",
+      gap: "16px",
+      textAlign: "left",
+      border: "1px solid rgba(129,140,248,0.18)",
+      background:
+        "linear-gradient(145deg, rgba(30,41,82,0.72), rgba(15,23,48,0.84))",
+      boxShadow:
+        "0 12px 32px rgba(2,6,23,0.28), inset 0 1px 0 rgba(255,255,255,0.04)",
+      cursor: "pointer",
+      transition:
+        "transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease",
+      animationDelay: `${index * 70}ms`,
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = "translateY(-4px)";
+      e.currentTarget.style.borderColor = "rgba(129,140,248,0.42)";
+      e.currentTarget.style.boxShadow =
+        "0 18px 42px rgba(2,6,23,0.42), 0 0 28px rgba(99,102,241,0.10), inset 0 1px 0 rgba(255,255,255,0.06)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = "translateY(0)";
+      e.currentTarget.style.borderColor = "rgba(129,140,248,0.18)";
+      e.currentTarget.style.boxShadow =
+        "0 12px 32px rgba(2,6,23,0.28), inset 0 1px 0 rgba(255,255,255,0.04)";
+    }}
+  >
+    {/* Ambient glow */}
+    <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        top: "-60px",
+        right: "-50px",
+        width: "140px",
+        height: "140px",
+        borderRadius: "50%",
+        background:
+          "radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%)",
+        pointerEvents: "none",
+      }}
+    />
 
-                <div style={{ flex: 1 }}>
-                  <div
-                    style={{
-                      color: "#f1f5f9",
-                      fontSize: "14px",
-                      fontWeight: 750,
-                    }}
-                  >
-                    {action.title}
-                  </div>
+    {/* Accent rail */}
+    <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        left: 0,
+        top: "18px",
+        bottom: "18px",
+        width: "3px",
+        borderRadius: "0 4px 4px 0",
+        background:
+          "linear-gradient(180deg, #60a5fa, #818cf8, #a78bfa)",
+        opacity: 0.9,
+      }}
+    />
 
-                  <div
-                    style={{
-                      marginTop: "6px",
-                      color: "#94a3b8",
-                      fontSize: "12px",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {action.description}
-                  </div>
-                </div>
+    {/* Icon */}
+    <div
+      style={{
+        position: "relative",
+        width: "50px",
+        height: "50px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "15px",
+        background:
+          "linear-gradient(145deg, rgba(99,102,241,0.18), rgba(59,130,246,0.08))",
+        border: "1px solid rgba(129,140,248,0.25)",
+        color: action.color,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 20px rgba(15,23,42,0.22)",
+        flexShrink: 0,
+      }}
+    >
+      {action.icon}
+    </div>
 
-                <ArrowRight size={20} color="#64748b" />
-              </button>
-            ))}
-          </div>
+    {/* Content */}
+    <div
+      style={{
+        position: "relative",
+        flex: 1,
+        minWidth: 0,
+      }}
+    >
+      <div
+        style={{
+          color: "#f8fafc",
+          fontSize: "14px",
+          fontWeight: 750,
+          letterSpacing: "-0.01em",
+        }}
+      >
+        {action.title}
+      </div>
+
+      <div
+        style={{
+          marginTop: "6px",
+          color: "#94a3b8",
+          fontSize: "12px",
+          lineHeight: 1.5,
+        }}
+      >
+        {action.description}
+      </div>
+    </div>
+
+    {/* Arrow */}
+    <div
+      style={{
+        position: "relative",
+        width: "30px",
+        height: "30px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "10px",
+        background: "rgba(255,255,255,0.035)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        flexShrink: 0,
+      }}
+    >
+      <ArrowRight size={16} color="#818cf8" />
+    </div>
+  </button>
+))}          </div>
         </section>
 
         {/* =================================================
