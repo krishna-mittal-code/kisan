@@ -1,92 +1,443 @@
 "use client";
 
-import { useTranslation } from 'react-i18next';
-import { Search, Mic, Bell, User } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import {
+  Search,
+  Globe2,
+  Mic,
+  Bell,
+  User,
+  X,
+  ChevronDown,
+  CloudRain,
+  Bug,
+  Droplets,
+  Sprout,
+  ArrowRight,
+  MapPin,
+  Settings,
+  MessageCircle,
+} from "lucide-react";
+import toast from "react-hot-toast";
+
+import i18n from "@/i18n/config";
+import SaathiAssistant from "./SaathiAssistant";
+
+/* =========================================================
+   SEARCH DATA
+   ========================================================= */
+
+const searchItems = [
+  {
+    titleKey: "sidebar.dashboard",
+    descriptionKey: "dashboard.overview",
+    keywords: "dashboard home overview",
+    route: "/",
+    icon: <Sprout size={15} />,
+  },
+  {
+    titleKey: "sidebar.myFarm",
+    descriptionKey: "topbar.searchFarmDescription",
+    keywords: "farm field crop wheat",
+    route: "/my-farm",
+    icon: <Sprout size={15} />,
+  },
+  {
+    titleKey: "sidebar.diseaseDetection",
+    descriptionKey: "disease.subtitle",
+    keywords: "disease leaf image analysis ai",
+    route: "/disease-detection",
+    icon: <Bug size={15} />,
+  },
+  {
+    titleKey: "sidebar.cropAdvisory",
+    descriptionKey: "crop.subtitle",
+    keywords: "crop advice advisory farming",
+    route: "/crop-advisory",
+    icon: <Sprout size={15} />,
+  },
+  {
+    titleKey: "sidebar.weather",
+    descriptionKey: "weather.subtitle",
+    keywords: "weather rain temperature humidity forecast",
+    route: "/weather",
+    icon: <CloudRain size={15} />,
+  },
+  {
+    titleKey: "sidebar.marketPrices",
+    descriptionKey: "market.subtitle",
+    keywords: "market mandi price wheat rice maize",
+    route: "/market-prices",
+    icon: <MapPin size={15} />,
+  },
+  {
+    titleKey: "sidebar.knowledgeHub",
+    descriptionKey: "knowledge.subtitle",
+    keywords: "knowledge guides farming learn",
+    route: "/knowledge-hub",
+    icon: <MessageCircle size={15} />,
+  },
+  {
+    titleKey: "sidebar.expertConnect",
+    descriptionKey: "expert.subtitle",
+    keywords: "expert doctor consultation help",
+    route: "/expert-connect",
+    icon: <User size={15} />,
+  },
+  {
+    titleKey: "sidebar.alerts",
+    descriptionKey: "alerts.subtitle",
+    keywords: "alerts notification warning critical",
+    route: "/alerts",
+    icon: <Bell size={15} />,
+  },
+  {
+    titleKey: "sidebar.settings",
+    descriptionKey: "settings.subtitle",
+    keywords: "settings profile language notification",
+    route: "/settings",
+    icon: <Settings size={15} />,
+  },
+];
+
+/* =========================================================
+   ALERT DATA
+   ========================================================= */
+
+const recentAlerts = [
+  {
+    id: 1,
+    titleKey: "alerts.diseaseRiskIncreased",
+    messageKey: "alerts.humidityDiseaseRisk",
+    typeKey: "alerts.critical",
+    icon: <Bug size={15} />,
+    color: "#fb7185",
+  },
+  {
+    id: 2,
+    titleKey: "alerts.rainExpected",
+    messageKey: "alerts.reviewIrrigation",
+    typeKey: "alerts.warning",
+    icon: <CloudRain size={15} />,
+    color: "#60a5fa",
+  },
+  {
+    id: 3,
+    titleKey: "alerts.irrigationReview",
+    messageKey: "alerts.moderateIrrigation",
+    typeKey: "alerts.info",
+    icon: <Droplets size={15} />,
+    color: "#38bdf8",
+  },
+];
+
+/* =========================================================
+   COMPONENT
+   ========================================================= */
 
 export default function Topbar() {
-  const { t, i18n } = useTranslation();
+  const router = useRouter();
+  const { t } = useTranslation();
 
-  const toggleLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    i18n.changeLanguage(e.target.value);
-    toast.success('Language updated');
-  };
+  const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [saathiOpen, setSaathiOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const currentLangCode = i18n.language.split("-")[0];
+  
+  // Floating AI Guide state
+  const [showTooltip, setShowTooltip] = useState(true);
+  const [globalDiseaseData, setGlobalDiseaseData] = useState<unknown>(null);
 
-  const languages = [
-    { code: 'en', label: '🌐 English' },
-    { code: 'hi', label: '🌐 हिन्दी (Hindi)' },
-    { code: 'gu', label: '🌐 ગુજરાતી (Gujarati)' },
-    { code: 'mr', label: '🌐 मराठी (Marathi)' },
-    { code: 'bn', label: '🌐 বাংলা (Bengali)' },
-    { code: 'pa', label: '🌐 ਪੰਜਾਬੀ (Punjabi)' },
-    { code: 'ta', label: '🌐 தமிழ் (Tamil)' },
-    { code: 'te', label: '🌐 తెలుగు (Telugu)' },
-    { code: 'kn', label: '🌐 ಕನ್ನಡ (Kannada)' },
-    { code: 'ml', label: '🌐 മലയാളം (Malayalam)' },
-    { code: 'or', label: '🌐 ଓଡ଼ିଆ (Odia)' },
-    { code: 'as', label: '🌐 অসমীয়া (Assamese)' }
-  ];
+  const searchRef = useRef<HTMLDivElement>(null);
+  const notificationRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+  const languageRef = useRef<HTMLDivElement>(null);
+
+  const normalizedSearch = search.trim().toLowerCase();
+  const searchResults =
+    normalizedSearch.length === 0
+      ? []
+      : searchItems.filter((item) =>
+          `${item.titleKey} ${item.descriptionKey} ${item.keywords}`
+            .toLowerCase()
+            .includes(normalizedSearch)
+        );
+
+  // Close Dropdowns When Clicking Outside
+  useEffect(() => {
+    function handleOutsideClick(event: MouseEvent) {
+      const target = event.target as Node;
+      if (searchRef.current && !searchRef.current.contains(target)) setSearchOpen(false);
+      if (notificationRef.current && !notificationRef.current.contains(target)) setNotificationOpen(false);
+      if (profileRef.current && !profileRef.current.contains(target)) setProfileOpen(false);
+      if (languageRef.current && !languageRef.current.contains(target)) setLanguageOpen(false);
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  // Tooltip fade out after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTooltip(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Listen for Dashboard "Talk to Saathi" CTA
+  useEffect(() => {
+    const handleOpenSaathi = (e: Event) => {
+      setSaathiOpen(true);
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail) {
+        setGlobalDiseaseData(customEvent.detail);
+      }
+    };
+    window.addEventListener("open-saathi", handleOpenSaathi);
+    return () => window.removeEventListener("open-saathi", handleOpenSaathi);
+  }, []);
+
+  function navigate(route: string) {
+    router.push(route);
+    setSearchOpen(false);
+    setNotificationOpen(false);
+    setProfileOpen(false);
+    setLanguageOpen(false);
+  }
+
+  function handleSearchSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    if (searchResults.length > 0) {
+      navigate(searchResults[0].route);
+      return;
+    }
+    if (search.trim()) {
+      toast.error(t("sidebar.noFeatureFound", { query: search }));
+    }
+  }
+
+  function changeLanguage(language: string) {
+    i18n.changeLanguage(language);
+    const names: Record<string, string> = { en: "English", hi: "Hindi", gu: "Gujarati" };
+    toast.success(t("sidebar.languageChanged", { language: names[language] ?? language }));
+    setLanguageOpen(false);
+  }
 
   return (
-    <header style={{
-      position: 'fixed', top: 0, left: '260px', right: 0, height: '80px',
-      backgroundColor: '#0a0514', // Deep purple dark theme
-      borderBottom: '1px solid #23163b', display: 'flex',
-      alignItems: 'center', justifyContent: 'space-between', padding: '0 32px', zIndex: 10
-    }}>
-      {/* Search Input */}
-      <div style={{
-        display: 'flex', alignItems: 'center', backgroundColor: '#160d2b',
-        border: '1px solid #2d1f4a', borderRadius: '8px', padding: '10px 16px', width: '450px'
-      }}>
-        <Search style={{ color: '#8b849c', width: '20px', height: '20px' }} />
-        <input 
-          type="text" 
-          placeholder={t('topbar.searchPlaceholder', 'Search village, district or farm location...')}
-          style={{ background: 'transparent', border: 'none', color: '#FFF', marginLeft: '12px', width: '100%', outline: 'none' }}
-        />
-      </div>
+    <>
+      <header
+        className="topbar-shell"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: "260px",
+          right: 0,
+          height: "78px",
+          zIndex: 1000,
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          padding: "0 28px",
+          background: "rgba(7,10,27,0.72)",
+          backdropFilter: "blur(24px) saturate(125%)",
+          WebkitBackdropFilter: "blur(24px) saturate(125%)",
+          borderBottom: "1px solid rgba(129,140,248,0.16)",
+        }}
+      >
+        <div ref={searchRef} className="topbar-search" style={{ position: "relative", flex: 1, maxWidth: "640px" }}>
+          <form onSubmit={handleSearchSubmit}>
+            <Search size={19} style={{ position: "absolute", left: "17px", top: "50%", transform: "translateY(-50%)", color: "#64748b", pointerEvents: "none" }} />
+            <input
+              className="topbar-search-input"
+              value={search}
+              onChange={(event) => {
+                setSearch(event.target.value);
+                setSearchOpen(true);
+              }}
+              onFocus={() => setSearchOpen(true)}
+              placeholder={t("topbar.searchPlaceholder")}
+              style={{
+                width: "100%", height: "54px", boxSizing: "border-box", padding: "0 45px", borderRadius: "13px", border: "1px solid rgba(99,102,241,0.20)", outline: "none", background: "linear-gradient(135deg, rgba(24,20,62,0.85), rgba(13,20,47,0.88))", color: "#e2e8f0", fontSize: "13px"
+              }}
+            />
+            {search && (
+              <button className="topbar-icon-button topbar-clear-button" type="button" onClick={() => { setSearch(""); setSearchOpen(false); }} style={{ position: "absolute", right: "13px", top: "50%", transform: "translateY(-50%)", width: "26px", height: "26px", display: "flex", alignItems: "center", justifyContent: "center", border: "none", borderRadius: "50%", background: "rgba(100,116,139,0.12)", color: "#64748b", cursor: "pointer" }}>
+                <X size={13} />
+              </button>
+            )}
+          </form>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-        {/* Multilingual Switcher */}
-        <select 
-          onChange={toggleLanguage} 
-          value={i18n.language}
-          style={{
-            padding: '8px 16px', backgroundColor: '#160d2b', color: '#FFF',
-            border: '1px solid #2d1f4a', borderRadius: '8px', cursor: 'pointer', appearance: 'none'
-          }}
-        >
-          {languages.map(lang => (
-            <option key={lang.code} value={lang.code}>{lang.label}</option>
-          ))}
-        </select>
+          {searchOpen && search.trim() && (
+            <div className="topbar-dropdown" style={{ position: "absolute", top: "61px", left: 0, right: 0, padding: "7px", borderRadius: "13px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.45)", backdropFilter: "blur(20px)" }}>
+              {searchResults.length > 0 ? (
+                searchResults.slice(0, 6).map((item) => (
+                  <button className="topbar-dropdown-item" key={item.route} type="button" onClick={() => navigate(item.route)} style={{ width: "100%", display: "flex", alignItems: "center", gap: "11px", padding: "10px", border: "none", borderRadius: "9px", background: "transparent", color: "#e2e8f0", textAlign: "left", cursor: "pointer" }}>
+                    <div style={{ width: "30px", height: "30px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", background: "rgba(96,165,250,0.08)", color: "#60a5fa" }}>{item.icon}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: "10px", fontWeight: 700 }}>{t(item.titleKey)}</div>
+                      <div style={{ marginTop: "3px", color: "#64748b", fontSize: "8px" }}>{t(item.descriptionKey)}</div>
+                    </div>
+                    <ArrowRight size={13} color="#475569" />
+                  </button>
+                ))
+              ) : (
+                <div style={{ padding: "20px", textAlign: "center", color: "#64748b", fontSize: "9px" }}>{t("topbar.noFeatureFound")}</div>
+              )}
+            </div>
+          )}
+        </div>
 
-        {/* Talk to Saathi Button */}
-        <button style={{
-          display: 'flex', alignItems: 'center', gap: '8px',
-          padding: '8px 16px', backgroundColor: 'rgba(139, 92, 246, 0.2)', // Purple tint
-          color: '#a78bfa', border: '1px solid #8b5cf6', borderRadius: '8px', cursor: 'pointer'
-        }}>
-          <Mic style={{ width: '16px', height: '16px' }} />
-          Talk to Saathi
+        <div ref={languageRef} style={{ position: "relative" }}>
+          <button className="topbar-control-button" type="button" onClick={() => setLanguageOpen((current) => !current)} style={{ height: "54px", minWidth: "150px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", padding: "0 14px", borderRadius: "12px", border: "1px solid rgba(99,102,241,0.20)", background: "rgba(20,18,55,0.80)", color: "#e2e8f0", cursor: "pointer" }}>
+            <span style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "16px", fontWeight: 700 }}>
+              <Globe2 size={16} color="#60a5fa" />
+              {currentLangCode === "hi" ? "हिन्दी" : currentLangCode === "gu" ? "ગુજરાતી" : "English"}
+            </span>
+            <ChevronDown size={14} color="#64748b" />
+          </button>
+
+          {languageOpen && (
+            <div className="topbar-dropdown" style={{ position: "absolute", top: "61px", right: 0, width: "170px", padding: "16px", borderRadius: "12px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
+              {[["en", "English"], ["hi", "Hindi"], ["gu", "Gujarati"]].map(([code, label]) => (
+                <button className="topbar-dropdown-item" key={code} type="button" onClick={() => changeLanguage(code)} style={{ width: "100%", padding: "9px 10px", border: "none", borderRadius: "8px", background: "transparent", color: "#cbd5e1", textAlign: "left", fontSize: "16px", cursor: "pointer" }}>{label}</button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <button className="topbar-saathi-button" type="button" onClick={() => setSaathiOpen(true)} style={{ height: "54px", display: "flex", alignItems: "center", gap: "8px", padding: "0 16px", borderRadius: "12px", border: "1px solid rgba(139,92,246,0.40)", background: "linear-gradient(135deg, rgba(79,70,229,0.24), rgba(139,92,246,0.18))", color: "#ddd6fe", fontSize: "15px", fontWeight: 750, cursor: "pointer", boxShadow: "0 0 22px rgba(139,92,246,0.10)" }}>
+          <Mic size={16} />
+          <span>Talk to<br />Saathi</span>
         </button>
 
-        <div style={{ position: 'relative', cursor: 'pointer' }}>
-          <Bell style={{ color: '#c4b5fd', width: '24px', height: '24px' }} />
-          <span style={{ position: 'absolute', top: '-4px', right: '-4px', width: '10px', height: '10px', backgroundColor: '#ef4444', borderRadius: '50%' }}></span>
+        <div ref={notificationRef} style={{ position: "relative" }}>
+          <button className="topbar-control-button topbar-notification-button" type="button" onClick={() => setNotificationOpen((current) => !current)} style={{ position: "relative", width: "54px", height: "54px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "12px", border: "1px solid rgba(99,102,241,0.18)", background: "rgba(15,21,48,0.82)", color: "#94a3b8", cursor: "pointer" }}>
+            <Bell size={18} />
+            <span className="topbar-notification-dot" style={{ position: "absolute", top: "11px", right: "11px", width: "7px", height: "7px", borderRadius: "50%", background: "#fb7185", boxShadow: "0 0 8px rgba(251,113,133,0.9)" }} />
+          </button>
+
+          {notificationOpen && (
+            <div className="topbar-dropdown topbar-alert-dropdown" style={{ position: "absolute", top: "61px", right: 0, width: "330px", padding: "10px", borderRadius: "14px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 25px 60px rgba(0,0,0,0.5)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 5px 10px" }}>
+                <div style={{ color: "#ffffff", fontSize: "15px", fontWeight: 750 }}>{t("topbar.recentAlerts")}</div>
+                <button type="button" onClick={() => navigate("/alerts")} style={{ display: "flex", alignItems: "center", gap: "4px", border: "none", background: "transparent", color: "#60a5fa", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}>
+                  {t("topbar.viewAll")} <ArrowRight size={10} />
+                </button>
+              </div>
+
+              {recentAlerts.map((alert) => (
+                <button className="topbar-dropdown-item" key={alert.id} type="button" onClick={() => navigate("/alerts")} style={{ width: "100%", display: "flex", alignItems: "flex-start", gap: "9px", padding: "10px 7px", border: "none", borderTop: "1px solid rgba(99,102,241,0.07)", background: "transparent", textAlign: "left", cursor: "pointer" }}>
+                  <div style={{ width: "29px", height: "29px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", background: `${alert.color}12`, color: alert.color, flexShrink: 0 }}>{alert.icon}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ color: "#e2e8f0", fontSize: "12px", fontWeight: 700 }}>{t(alert.titleKey)}</div>
+                    <div style={{ color: "#64748b", fontSize: "12px", lineHeight: 1.5, marginTop: "3px" }}>{t(alert.messageKey)}</div>
+                  </div>
+                  <span style={{ color: alert.color, fontSize: "12px", fontWeight: 700 }}>{t(alert.typeKey)}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderLeft: '1px solid #2d1f4a', paddingLeft: '16px' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#2d1f4a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <User style={{ color: '#c4b5fd', width: '20px', height: '20px' }} />
-          </div>
-          <div>
-            <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#FFF' }}>Hello, Farmer</p>
-            <p style={{ margin: 0, fontSize: '12px', color: '#8b849c' }}>ID: 240033</p>
-          </div>
+        <div ref={profileRef} style={{ position: "relative" }}>
+          <button className="topbar-profile-button" type="button" onClick={() => setProfileOpen((current) => !current)} style={{ display: "flex", alignItems: "center", gap: "9px", padding: "0 3px", border: "none", background: "transparent", color: "#ffffff", cursor: "pointer" }}>
+            <div style={{ width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "linear-gradient(135deg, #4f46e5, #7c3aed)", border: "1px solid rgba(129,140,248,0.5)", boxShadow: "0 0 20px rgba(99,102,241,0.18)" }}>
+              <User size={21} />
+            </div>
+            <div style={{ textAlign: "left", minWidth: "85px" }}>
+              <div style={{ fontSize: "16px", fontWeight: 750, color: "#ffffff" }}>{t("topbar.hello")}</div>
+              <div style={{ marginTop: "2px", color: "#64748b", fontSize: "16px" }}>{t("topbar.id", { id: "240033" })}</div>
+            </div>
+          </button>
+
+          {profileOpen && (
+            <div className="topbar-dropdown" style={{ position: "absolute", top: "61px", right: 0, width: "200px", padding: "7px", borderRadius: "13px", background: "rgba(10,15,36,0.94)", border: "1px solid rgba(99,102,241,0.20)", boxShadow: "0 20px 50px rgba(0,0,0,0.45)" }}>
+              <button type="button" onClick={() => navigate("/my-farm")} style={menuButtonStyle}><Sprout size={14} /> {t("sidebar.myFarm")}</button>
+              <button type="button" onClick={() => navigate("/settings")} style={menuButtonStyle}><Settings size={14} /> {t("sidebar.settings")}</button>
+              <button type="button" onClick={() => navigate("/alerts")} style={menuButtonStyle}><Bell size={14} /> {t("sidebar.alerts")}</button>
+            </div>
+          )}
         </div>
+      </header>
+
+      {/* FLOATING ACTION BUTTON (AI Guide) */}
+      <div className="topbar-floating-action"
+        style={{ 
+          position: "fixed", 
+          bottom: "35px", 
+          right: "35px", 
+          zIndex: 900, 
+          display: "flex", 
+          alignItems: "center", 
+          gap: "12px" 
+        }}
+      >
+        {showTooltip && (
+          <div 
+            style={{ 
+              background: "rgba(79,70,229,0.9)", 
+              color: "#fff", 
+              padding: "10px 16px", 
+              borderRadius: "12px", 
+              fontSize: "12px", 
+              fontWeight: 700, 
+              boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
+              transition: "opacity 0.5s ease" 
+            }}
+          >
+            {t("sidebar.aiGuide")}
+          </div>
+        )}
+      <button className="topbar-floating-button"
+          onClick={() => setSaathiOpen(true)}
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+            border: "1px solid rgba(139,92,246,0.5)",
+            color: "white",
+            cursor: "pointer",
+            boxShadow: "0 10px 25px rgba(124,58,237,0.4)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            transition: "transform 0.2s ease"
+          }}
+        >
+          <Mic size={26} />
+        </button>
       </div>
-    </header>
+
+      <SaathiAssistant
+        isOpen={saathiOpen}
+        onClose={() => setSaathiOpen(false)}
+        currentLanguage={currentLangCode}
+        diseaseContext={globalDiseaseData}
+      />
+    </>
   );
 }
+
+const menuButtonStyle: React.CSSProperties = {
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  gap: "9px",
+  padding: "9px 10px",
+  border: "none",
+  borderRadius: "8px",
+  background: "transparent",
+  color: "#cbd5e1",
+  textAlign: "left",
+  fontSize: "16px",
+  fontWeight: 650,
+  cursor: "pointer",
+};
